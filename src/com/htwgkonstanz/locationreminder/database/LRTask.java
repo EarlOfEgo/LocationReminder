@@ -5,16 +5,19 @@ package com.htwgkonstanz.locationreminder.database;
 
 import java.util.Date;
 
+import android.R.integer;
+
 /**
  * @author stephan
  *
  */
-public class LocationReminderTask {
+public class LRTask {
 	
 	private int taskId;
 	private String taskName;
 	private double taskLongitude;
 	private double taskLatitude;
+	private double taskRange;
 	private String taskCategory;
 	private int taskUrgency;
 	private int taskRemindType;
@@ -23,7 +26,7 @@ public class LocationReminderTask {
 	private boolean taskExecuted;
 	private String[][] remindRanges;
 	
-	public LocationReminderTask() {
+	public LRTask() {
 		setRemindRanges(new String[7][2]);
 	}
 	
@@ -93,9 +96,26 @@ public class LocationReminderTask {
 	public String[][] getRemindRanges() {
 		return remindRanges;
 	}
+	
+	public String getRemindFromSpecific(int from) {
+		return remindRanges[from][0];
+	}
 
+	public String getRemindToSpecific(int to) {
+		return remindRanges[to][1];
+	}
 
 	public void setRemindRanges(String[][] remindRanges) {
 		this.remindRanges = remindRanges;
+	}
+
+
+	public double getTaskRange() {
+		return taskRange;
+	}
+
+
+	public void setTaskRange(double taskRange) {
+		this.taskRange = taskRange;
 	}
 }

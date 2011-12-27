@@ -18,4 +18,6 @@
     <string name="cntV_taskDescription">Description</string>
     <string name="cntV_taskDefineTimeRange">Specify remind days</string>
     <string name="cntV_taskspecifyReminderMode">Specify the remind mode</string>
+    <string name="cntV_taskChooseLocation">Choose Location</string>
+    <string name="cntV_taskSpecifyRange">Specify reminding range</string>
 </resources>

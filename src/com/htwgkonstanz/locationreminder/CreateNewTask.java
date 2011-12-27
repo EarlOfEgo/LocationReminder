@@ -1,6 +1,6 @@
 package com.htwgkonstanz.locationreminder;
 
-import com.htwgkonstanz.locationreminder.database.LocationReminderTask;
+import com.htwgkonstanz.locationreminder.database.LRTask;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ public class CreateNewTask extends Activity {
 	private Button saveButton;
 	private Button cancelButton;
 	private Boolean taskCanBeSaved;
-	private LocationReminderTask newTask;
+	private LRTask newTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,11 @@ public class CreateNewTask extends Activity {
 		setContentView(R.layout.createnewtask);
 		
 		taskName =(TextView) findViewById(R.id.cnt_taskName);
-		locationButton = (ToggleButton) findViewById(R.id.cnt_locationButton);
+//		locationButton = (ToggleButton) findViewById(R.id.cnt_locationButton);
 		specifyDaysCheckBox = (CheckBox) findViewById(R.id.cnt_checkBox_specify_days);
 		urgencyRatingBar = (RatingBar) findViewById(R.id.cnt_setUrgency);
 		
-		newTask = new LocationReminderTask();
+		newTask = new LRTask();
 		
 		taskCanBeSaved = false;
 		saveButton();
@@ -59,7 +59,7 @@ public class CreateNewTask extends Activity {
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO
+				finish();
 			}
 		});
 	}
