@@ -58,6 +58,7 @@ public class LRDatabaseAdapter {
 		contentValues.put(LRDatabaseHelper.DB_taskLongitude, task.getTaskLongitude());
 		contentValues.put(LRDatabaseHelper.DB_taskCreationDate, task.getTaskCreationDate().getTime());
 		contentValues.put(LRDatabaseHelper.DB_taskRange, task.getTaskRange());
+		contentValues.put(LRDatabaseHelper.DB_taskDescription, task.getTaskDescription());
 		
 		contentValues.put(LRDatabaseHelper.DB_taskMondayFrom, task.getRemindFromSpecific(0));
 		contentValues.put(LRDatabaseHelper.DB_taskTuesdayFrom, task.getRemindFromSpecific(1));

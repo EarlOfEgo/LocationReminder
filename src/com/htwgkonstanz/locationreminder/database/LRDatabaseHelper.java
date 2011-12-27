@@ -2,13 +2,13 @@ package com.htwgkonstanz.locationreminder.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class LRDatabaseHelper extends SQLiteOpenHelper{
 	private static final String DBNAME = "locationreminderdatabase";
 	private static final int DBVERSION = 1;
 	public static final String DB_taskName = "task_name";
+	public static final String DB_taskDescription = "task_descr";
 	public static final String DB_taskID = "task_id";
 	public static final String DB_taskLongitude = "task_long";
 	public static final String DB_taskLatitude = "task_lat";
@@ -36,6 +36,7 @@ public class LRDatabaseHelper extends SQLiteOpenHelper{
 	private static final String LocationReminderCreateTable = 
 									"CREATE TABLE " + DB_taskName + " (" +
 									DB_taskID  + " INTEGER primary key autoincrement, " +
+									DB_taskDescription + "TEXT " +
 									DB_taskLongitude + " REAL not NULL, " +
 									DB_taskLatitude + " REAL not NULL, " +
 									DB_taskRange + " REAL not NULL, " +

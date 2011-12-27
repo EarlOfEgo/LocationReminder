@@ -3,18 +3,22 @@
  */
 package com.htwgkonstanz.locationreminder.database;
 
+import java.io.Serializable;
 import java.util.Date;
-
-import android.R.integer;
 
 /**
  * @author stephan
  *
  */
-public class LRTask {
+public class LRTask implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int taskId;
 	private String taskName;
+	private String taskDescription;
 	private double taskLongitude;
 	private double taskLatitude;
 	private double taskRange;
@@ -117,5 +121,15 @@ public class LRTask {
 
 	public void setTaskRange(double taskRange) {
 		this.taskRange = taskRange;
+	}
+
+
+	public String getTaskDescription() {
+		return taskDescription;
+	}
+
+
+	public void setTaskDescription(String taskDescription) {
+		this.taskDescription = taskDescription;
 	}
 }
