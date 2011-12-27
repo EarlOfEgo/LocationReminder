@@ -1,8 +1,9 @@
 package com.htwgkonstanz.locationreminder;
 
-import de.htwgkonstanz.locationreminder.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class LocationReminderActivity extends Activity {
     /** Called when the activity is first created. */
@@ -11,5 +12,8 @@ public class LocationReminderActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        
+        Intent intent = new Intent(this, CreateNewTask.class);
+        startActivity(intent);
     }
 }

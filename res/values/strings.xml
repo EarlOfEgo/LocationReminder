@@ -3,5 +3,19 @@
 
     <string name="hello">Hello World, LocationReminderActivity!</string>
     <string name="app_name">LocationReminder</string>
-
+    
+    
+    
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
+    <string name="save">save</string>
+    
+    
+    <!-- createnewtask view elements -->
+    <string name="cntV_enterTaskName">Task Name</string>
+    <string name="cntV_taskUrgency">Task Urgency</string>
+    <string name="cntV_taskLocation">Specify Location</string>
+    <string name="cntV_taskDescription">Description</string>
+    <string name="cntV_taskDefineTimeRange">Specify remind days</string>
+    <string name="cntV_taskspecifyReminderMode">Specify the remind mode</string>
 </resources>
