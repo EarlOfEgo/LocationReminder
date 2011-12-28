@@ -12,7 +12,7 @@ public class LocationReminderActivity extends Activity {
         setContentView(R.layout.main);
         
         
-        Intent intent = new Intent(this, CreateNewTask.class);
+        Intent intent = new Intent(this, ChooseLocationOnMap.class);
         startActivity(intent);
     }
 }
