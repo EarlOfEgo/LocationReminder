@@ -1,8 +1,11 @@
 package com.htwgkonstanz.locationreminder;
 
+import com.htwgkonstanz.locationreminder.database.LRTask;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -83,6 +86,8 @@ public class SpecifyDaysAndTime extends Activity {
 	private GridLayout gridSunday;
 	
 	private boolean[] everythingOk = new boolean[7];
+	
+	private LRTask task;
 
 	
 
@@ -92,13 +97,29 @@ public class SpecifyDaysAndTime extends Activity {
 		setContentView(R.layout.chooseremindingtime);
 		
 
-		for (int i = 0; i < 7; i++) {
-			fromTime[i][0] = 0;
-			fromTime[i][1] = 1;
-			toTime[i][0] = 23;
-			toTime[i][1] = 59;
-			everythingOk[i] = true;
+		task = (LRTask) getIntent().getSerializableExtra("POJO");
+		
+		if(task == null) {
+			for (int i = 0; i < 7; i++) {
+				fromTime[i][0] = 0;
+				fromTime[i][1] = 1;
+				toTime[i][0] = 23;
+				toTime[i][1] = 59;
+				everythingOk[i] = true;
+			}
+		} else {
+			task = new LRTask();
+			for (int i = 0; i < 7; i++) {
+				fromTime[i][0] = task.getRemindFromSpecific(i)/60;
+				fromTime[i][1] = task.getRemindFromSpecific(i)%60;
+				toTime[i][0] = task.getRemindToSpecific(i)/60;
+				toTime[i][1] = task.getRemindToSpecific(i)%60;
+				everythingOk[i] = true;
+			}
 		}
+		
+		
+		
 		
 		okButton();
 		cancelButton();
@@ -143,53 +164,107 @@ public class SpecifyDaysAndTime extends Activity {
 		saturdayTo.setEnabled(saturdayCheckBox.isChecked());
 		sundayFrom.setEnabled(sundayCheckBox.isChecked());
 		sundayTo.setEnabled(sundayCheckBox.isChecked());
+		checkBoxesUncheck();
+		updateDisplays();
 	}
 	
 	
+	private void checkBoxesUncheck() {
+		if(!mondayCheckBox.isChecked()) {
+			fromTime[MONDAY][HOUR] = 0;
+			fromTime[MONDAY][MINUTE] = 1;
+			toTime[MONDAY][HOUR] = 23;
+			toTime[MONDAY][MINUTE] = 59;
+			gridMonday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!tuesdayCheckBox.isChecked()) {
+			fromTime[TUESDAY][HOUR] = 0;
+			fromTime[TUESDAY][MINUTE] = 1;
+			toTime[TUESDAY][HOUR] = 23;
+			toTime[TUESDAY][MINUTE] = 59;
+			gridTuesday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!wednesdayCheckBox.isChecked()) {
+			fromTime[WEDNESDAY][HOUR] = 0;
+			fromTime[WEDNESDAY][MINUTE] = 1;
+			toTime[WEDNESDAY][HOUR] = 23;
+			toTime[WEDNESDAY][MINUTE] = 59;
+			gridWednesday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!thursdayCheckBox.isChecked()) {
+			fromTime[THURSDAY][HOUR] = 0;
+			fromTime[THURSDAY][MINUTE] = 1;
+			toTime[THURSDAY][HOUR] = 23;
+			toTime[THURSDAY][MINUTE] = 59;
+			gridThursday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!fridayCheckBox.isChecked()) {
+			fromTime[FRIDAY][HOUR] = 0;
+			fromTime[FRIDAY][MINUTE] = 1;
+			toTime[FRIDAY][HOUR] = 23;
+			toTime[FRIDAY][MINUTE] = 59;
+			gridFriday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!saturdayCheckBox.isChecked()) {
+			fromTime[SATURDAY][HOUR] = 0;
+			fromTime[SATURDAY][MINUTE] = 1;
+			toTime[SATURDAY][HOUR] = 23;
+			toTime[SATURDAY][MINUTE] = 59;
+			gridSaturday.setBackgroundColor(Color.TRANSPARENT);
+		}
+		if(!sundayCheckBox.isChecked()) {
+			fromTime[SUNDAY][HOUR] = 0;
+			fromTime[SUNDAY][MINUTE] = 1;
+			toTime[SUNDAY][HOUR] = 23;
+			toTime[SUNDAY][MINUTE] = 59;
+			gridSunday.setBackgroundColor(Color.TRANSPARENT);
+		}				
+	}
+	
 	private void checkChoosenTime(){
-		if((fromTime[MONDAY][HOUR]*100 + fromTime[MONDAY][MINUTE]) >= (toTime[MONDAY][HOUR]*100 + toTime[MONDAY][MINUTE])){
+		if((fromTime[MONDAY][HOUR]*60 + fromTime[MONDAY][MINUTE]) >= (toTime[MONDAY][HOUR]*60 + toTime[MONDAY][MINUTE])){
 			gridMonday.setBackgroundColor(Color.RED);
 			everythingOk[MONDAY] = false;
 		} else {
 			gridMonday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[MONDAY] = true;
 		}
-		if((fromTime[TUESDAY][HOUR]*100 + fromTime[TUESDAY][MINUTE]) >= (toTime[TUESDAY][HOUR]*100 + toTime[TUESDAY][MINUTE])){
+		if((fromTime[TUESDAY][HOUR]*60 + fromTime[TUESDAY][MINUTE]) >= (toTime[TUESDAY][HOUR]*60 + toTime[TUESDAY][MINUTE])){
 			gridTuesday.setBackgroundColor(Color.RED);
 			everythingOk[TUESDAY] = false;
 		} else {
 			gridTuesday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[TUESDAY] = true;
 		}
-		if((fromTime[WEDNESDAY][HOUR]*100 + fromTime[WEDNESDAY][MINUTE]) >= (toTime[WEDNESDAY][HOUR]*100 + toTime[WEDNESDAY][MINUTE])){
+		if((fromTime[WEDNESDAY][HOUR]*60 + fromTime[WEDNESDAY][MINUTE]) >= (toTime[WEDNESDAY][HOUR]*60 + toTime[WEDNESDAY][MINUTE])){
 			gridWednesday.setBackgroundColor(Color.RED);
 			everythingOk[WEDNESDAY] = false;
 		} else {
 			gridWednesday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[WEDNESDAY] = true;
 		}
-		if((fromTime[THURSDAY][HOUR]*100 + fromTime[THURSDAY][MINUTE]) >= (toTime[THURSDAY][HOUR]*100 + toTime[THURSDAY][MINUTE])){
+		if((fromTime[THURSDAY][HOUR]*60 + fromTime[THURSDAY][MINUTE]) >= (toTime[THURSDAY][HOUR]*60 + toTime[THURSDAY][MINUTE])){
 			gridThursday.setBackgroundColor(Color.RED);
 			everythingOk[THURSDAY] = false;
 		} else {
 			gridThursday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[TUESDAY] = true;
 		}
-		if((fromTime[FRIDAY][HOUR]*100 + fromTime[FRIDAY][MINUTE]) >= (toTime[FRIDAY][HOUR]*100 + toTime[FRIDAY][MINUTE])){
+		if((fromTime[FRIDAY][HOUR]*60 + fromTime[FRIDAY][MINUTE]) >= (toTime[FRIDAY][HOUR]*60 + toTime[FRIDAY][MINUTE])){
 			gridFriday.setBackgroundColor(Color.RED);
 			everythingOk[FRIDAY] = false;
 		} else {
 			gridFriday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[FRIDAY] = true;
 		}
-		if((fromTime[SATURDAY][HOUR]*100 + fromTime[SATURDAY][MINUTE]) >= (toTime[SATURDAY][HOUR]*100 + toTime[SATURDAY][MINUTE])){
+		if((fromTime[SATURDAY][HOUR]*60 + fromTime[SATURDAY][MINUTE]) >= (toTime[SATURDAY][HOUR]*60 + toTime[SATURDAY][MINUTE])){
 			gridSaturday.setBackgroundColor(Color.RED);
 			everythingOk[SATURDAY] = false;
 		} else {
 			gridSaturday.setBackgroundColor(Color.TRANSPARENT);
 			everythingOk[SATURDAY] = true;
 		}
-		if((fromTime[SUNDAY][HOUR]*100 + fromTime[SUNDAY][MINUTE]) >= (toTime[SUNDAY][HOUR]*100 + toTime[SUNDAY][MINUTE])){
+		if((fromTime[SUNDAY][HOUR]*60 + fromTime[SUNDAY][MINUTE]) >= (toTime[SUNDAY][HOUR]*60 + toTime[SUNDAY][MINUTE])){
 			gridSunday.setBackgroundColor(Color.RED);
 			everythingOk[SUNDAY] = false;
 		} else {
@@ -442,10 +517,9 @@ public class SpecifyDaysAndTime extends Activity {
 	private void cancelButton() {
 		cancelButton = (Button) findViewById(R.id.crt_cancelButton);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				
+				finish();
 			}
 		});
 	}
@@ -454,9 +528,25 @@ public class SpecifyDaysAndTime extends Activity {
 		okButton = (Button) findViewById(R.id.crt_okButton);
 		okButton.setOnClickListener(new View.OnClickListener() {
 			
+
 			@Override
 			public void onClick(View v) {
-				
+				if(task == null)
+					task = new LRTask();
+				int[][] allranges = new int[7][2];
+				for (int i = 0; i < allranges.length; i++) {
+					allranges[i][0] = (fromTime[i][0]*60) + fromTime[i][1];
+					allranges[i][1] = (toTime[i][0]*60) + toTime[i][1];
+				}
+				task.setRemindTimeRanges(allranges);
+				Intent intent = new Intent();
+				intent.putExtra("POJO", task);
+				if(getParent() == null) {
+					setResult(Activity.RESULT_OK, intent);
+				} else {
+					getParent().setResult(Activity.RESULT_OK, intent);
+				}
+				finish();
 			}
 		});
 	}

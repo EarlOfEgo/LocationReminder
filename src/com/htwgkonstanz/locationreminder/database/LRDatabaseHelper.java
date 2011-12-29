@@ -46,20 +46,20 @@ public class LRDatabaseHelper extends SQLiteOpenHelper{
 									DB_taskCreationDate + " LONG not NULL, " +
 									DB_taskExpireDate +" LONG, " +
 									DB_taskExecuted +" INTEGER not NULL, " +
-									DB_taskMondayFrom +" TEXT not NULL, " +
-									DB_taskMondayTo +" TEXT not NULL, " +
-									DB_taskTuesdayFrom +" TEXT not NULL, " +
-									DB_taskTuesdayTo +" TEXT not NULL, " +
-									DB_taskWednesdayFrom +" TEXT not NULL, " +
-									DB_taskWednesdayTo +" TEXT not NULL, " +
-									DB_taskThursdayFrom +" TEXT not NULL, " +
-									DB_taskThursdayTo +" TEXT not NULL, " +
-									DB_taskFridayFrom +" TEXT not NULL, " +
-									DB_taskFridayTo +" TEXT not NULL, " +
-									DB_taskSaturdayFrom +" TEXT not NULL, " +
-									DB_taskSaturdayTo +" TEXT not NULL, " +
-									DB_taskSundayFrom +" TEXT not NULL, " +
-									DB_taskSundayTo +" TEXT not NULL);";
+									DB_taskMondayFrom +" INTEGER not NULL, " +
+									DB_taskMondayTo +" INTEGER not NULL, " +
+									DB_taskTuesdayFrom +" INTEGER not NULL, " +
+									DB_taskTuesdayTo +" INTEGER not NULL, " +
+									DB_taskWednesdayFrom +" INTEGER not NULL, " +
+									DB_taskWednesdayTo +" INTEGER not NULL, " +
+									DB_taskThursdayFrom +" INTEGER not NULL, " +
+									DB_taskThursdayTo +" INTEGER not NULL, " +
+									DB_taskFridayFrom +" INTEGER not NULL, " +
+									DB_taskFridayTo +" INTEGER not NULL, " +
+									DB_taskSaturdayFrom +" INTEGER not NULL, " +
+									DB_taskSaturdayTo +" INTEGER not NULL, " +
+									DB_taskSundayFrom +" INTEGER not NULL, " +
+									DB_taskSundayTo +" INTEGER not NULL);";
 	
 	
 	public LRDatabaseHelper(Context context) {

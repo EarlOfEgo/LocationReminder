@@ -28,10 +28,10 @@ public class LRTask implements Serializable{
 	private Date taskCreationDate;
 	private Date taskExpireDate;
 	private boolean taskExecuted;
-	private String[][] remindRanges;
+	private int[][] remindTimeRanges;
 	
 	public LRTask() {
-		setRemindRanges(new String[7][2]);
+		setRemindTimeRanges(new int[7][2]);
 	}
 	
 	
@@ -97,20 +97,20 @@ public class LRTask implements Serializable{
 	}
 
 
-	public String[][] getRemindRanges() {
-		return remindRanges;
+	public int[][] getRemindTimeRanges() {
+		return remindTimeRanges;
 	}
 	
-	public String getRemindFromSpecific(int from) {
-		return remindRanges[from][0];
+	public int getRemindFromSpecific(int from) {
+		return remindTimeRanges[from][0];
 	}
 
-	public String getRemindToSpecific(int to) {
-		return remindRanges[to][1];
+	public int getRemindToSpecific(int to) {
+		return remindTimeRanges[to][1];
 	}
 
-	public void setRemindRanges(String[][] remindRanges) {
-		this.remindRanges = remindRanges;
+	public void setRemindTimeRanges(int[][] remindRanges) {
+		this.remindTimeRanges = remindRanges;
 	}
 
 

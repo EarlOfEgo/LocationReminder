@@ -25,6 +25,9 @@ public class LocationReminderActivity extends Activity {
         dbAdapter = new LRDatabaseAdapter(this);
         dbAdapter.open();
         
+        int minute = 1048%60;
+        int hour = 1048/60;
+        System.out.println("hour:" + hour + " minute:" +minute);
         
         showAllTasksButton();
         createNewTaskButton();

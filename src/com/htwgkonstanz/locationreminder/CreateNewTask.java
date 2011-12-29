@@ -68,7 +68,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(CreateNewTask.this, SpecifyDaysAndTime.class);
-				startActivity(intent);
+				startActivityForResult(intent, BACK_FROM_SPECIFYING_DAYS);
 			}
 		});
 	}
@@ -176,12 +176,19 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		
 		switch (requestCode) {
 		case BACK_FROM_LOCATION_CHOOSING:
-			//TODO
 			locationChosen = true;
 			break;
 		
 		case BACK_FROM_SPECIFYING_DAYS:
-			//TODO
+			if(resultCode == Activity.RESULT_OK) {
+				newTask = (LRTask) data.getSerializableExtra("POJO");
+				int[][] bla = newTask.getRemindTimeRanges();
+				for (int i = 0; i < bla.length; i++) {
+					
+					System.out.println(i + "->"+bla[i][0]/60 + ":" + bla[i][0]%60 + " bis " + bla[i][1]/60 + ":" + bla[i][1]%60);
+				}
+			}
+				
 			break;
 			
 		default:
