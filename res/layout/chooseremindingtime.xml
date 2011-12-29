@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+		<!-- MONDAY -->
+        <CheckBox
+            android:id="@+id/crt_mondayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monday" />
+
+        <GridLayout
+            android:id="@+id/grid_monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromMonday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToMonday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         
+         <!--TUESDAY -->
+         <CheckBox
+            android:id="@+id/crt_tuesdayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tuesday" />
+
+        <GridLayout
+            android:id="@+id/grid_tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromTuesday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToTuesday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         
+         <!-- WEDNESDAY -->
+         
+         <CheckBox
+            android:id="@+id/crt_wednesdayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wednesday" />
+
+        <GridLayout
+            android:id="@+id/grid_wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromWednesday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToWednesday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         
+         <!-- THURSDAY -->
+
+         <CheckBox
+            android:id="@+id/crt_thursdayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thursday" />
+
+        <GridLayout
+            android:id="@+id/grid_thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromThursday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo4"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToThursday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         
+         <!-- FRIDAY -->
+         <CheckBox
+            android:id="@+id/crt_fridayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friday" />
+
+        <GridLayout
+            android:id="@+id/grid_friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromFriday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo5"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToFriday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         <!-- SATURDAY -->
+         <CheckBox
+            android:id="@+id/crt_saturdayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saturday" />
+
+        <GridLayout
+            android:id="@+id/grid_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromSaturday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo6"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToSaturday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+         <View
+	        android:id="@+id/crt_line6"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+         
+         <!-- SUNDAY -->
+         <CheckBox
+            android:id="@+id/crt_sundayCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sunday" />
+
+        <GridLayout
+            android:id="@+id/grid_sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/crt_timeFromSunday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/crt_tvTo7"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/crt_timeToSunday"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="time" />
+        </GridLayout>
+		<View
+	        android:id="@+id/crt_line7"
+	        android:layout_width="wrap_content"
+	        android:layout_height="2dp"
+	        android:background="#33b5e5" />
+        <GridLayout
+            android:id="@+id/grid_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2" >
+			
+            <Button
+	            android:id="@+id/crt_okButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/ok" />
+            <Button
+	            android:id="@+id/crt_cancelButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cancel" />
+        </GridLayout>
+
+       
+    </LinearLayout>
+
+</ScrollView>

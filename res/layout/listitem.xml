@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listitemview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="12dp"
+        android:layout_y="2dp"
+        android:src="@drawable/task_button" />
+
+    <!-- <View
+        android:id="@+id/view1"
+        android:layout_width="2dp"
+        android:layout_height="46dp"
+        android:layout_x="50dp"
+        android:layout_y="0dp" /> -->
+
+    <View
+        android:id="@+id/listitem_urgencyView"
+        android:layout_width="2dp"
+        android:layout_height="46dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp" />
+
+    <TextView
+        android:id="@+id/listitem_taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="64dp"
+        android:layout_y="14dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</AbsoluteLayout>

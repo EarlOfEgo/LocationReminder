@@ -67,8 +67,8 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent intent = new Intent(CreateNewTask.this, SpecifyDaysAndTime.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -101,7 +101,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 	
 	private void saveButton() {
 		saveButton = (Button) findViewById(R.id.cnt_saveButton);
-		saveButton.setEnabled(taskCanBeSaved);
+//		saveButton.setEnabled(taskCanBeSaved);
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

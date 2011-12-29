@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/abs1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/main_createNewTaskButton"
+        android:layout_width="116dp"
+        android:layout_height="96dp"
+        android:layout_x="35dp"
+        android:layout_y="16dp"
+        android:background="@drawable/task_button" />
+
+    <Button
+        android:id="@+id/main_showAllTaskButton"
+        android:layout_width="116dp"
+        android:layout_height="96dp"
+        android:layout_x="170dp"
+        android:layout_y="16dp"
+        android:background="@drawable/task_button" />
 
     <TextView
-        android:id="@+id/tv"
-        android:layout_width="fill_parent"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:layout_x="187dp"
+        android:layout_y="111dp"
+        android:text="@string/main_showAllTask"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="50dp"
+        android:layout_y="111dp"
+        android:text="@string/main_createNewTask"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</AbsoluteLayout>

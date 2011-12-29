@@ -14,6 +14,25 @@ public class LRDatabaseAdapter {
 	public LRDatabaseAdapter(Context context) {
 		this.context = context;
 	}
+	
+	public Cursor getAllTasks() {
+		return database.query(LRDatabaseHelper.DBNAME, 
+								new String[]{ 
+								LRDatabaseHelper.DB_taskID, LRDatabaseHelper.DB_taskName,
+								LRDatabaseHelper.DB_taskDescription, LRDatabaseHelper.DB_taskLongitude,
+								LRDatabaseHelper.DB_taskLatitude, LRDatabaseHelper.DB_taskRange,
+								LRDatabaseHelper.DB_taskUrgency, LRDatabaseHelper.DB_taskReminderType,
+								LRDatabaseHelper.DB_taskCreationDate, LRDatabaseHelper.DB_taskExpireDate,
+								LRDatabaseHelper.DB_taskExecuted, LRDatabaseHelper.DB_taskMondayFrom,
+								LRDatabaseHelper.DB_taskMondayTo, LRDatabaseHelper.DB_taskTuesdayFrom,
+								LRDatabaseHelper.DB_taskTuesdayTo, LRDatabaseHelper.DB_taskWednesdayFrom,
+								LRDatabaseHelper.DB_taskWednesdayTo, LRDatabaseHelper.DB_taskThursdayFrom,
+								LRDatabaseHelper.DB_taskThursdayTo, LRDatabaseHelper.DB_taskFridayFrom,
+								LRDatabaseHelper.DB_taskFridayTo, LRDatabaseHelper.DB_taskSaturdayFrom,
+								LRDatabaseHelper.DB_taskSaturdayTo, LRDatabaseHelper.DB_taskSundayFrom,
+								LRDatabaseHelper.DB_taskSundayTo								
+						}, null, null, null, null, null);
+	}
 
 	public LRDatabaseAdapter open() throws SQLException {
 		dbHelper = new LRDatabaseHelper(context);
@@ -28,15 +47,15 @@ public class LRDatabaseAdapter {
 	public long insertNewTask(LRTask task) {
 		ContentValues contentValues = createAllContentValues(task);
 		
-		return database.insert(LRDatabaseHelper.DB_taskName, null, contentValues);
+		return database.insert(LRDatabaseHelper.DBNAME, null, contentValues);
 	}
 	
 	public int removeTask(int id) {
-		return database.delete(LRDatabaseHelper.DB_taskName, LRDatabaseHelper.DB_taskID + "=" + id, null);
+		return database.delete(LRDatabaseHelper.DBNAME, LRDatabaseHelper.DB_taskID + "=" + id, null);
 	}
 	
 	public Cursor getTask(int id) {
-		String select = "SELECT * FROM " + LRDatabaseHelper.DB_taskName + " WHERE " + LRDatabaseHelper.DB_taskID + " == " +id;
+		String select = "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + LRDatabaseHelper.DB_taskID + " == " +id;
 		Cursor cursor = database.rawQuery(select, null);
 		if(cursor != null)
 			cursor.moveToFirst();
@@ -46,7 +65,7 @@ public class LRDatabaseAdapter {
 	public int updateTask(LRTask task) {
 		ContentValues contentValues = createAllContentValues(task);
 		
-		return database.update(LRDatabaseHelper.DB_taskName, contentValues, LRDatabaseHelper.DB_taskID + " = " + task.getTaskId(), null);
+		return database.update(LRDatabaseHelper.DBNAME, contentValues, LRDatabaseHelper.DB_taskID + " = " + task.getTaskId(), null);
 	}
 
 	private ContentValues createAllContentValues(LRTask task) {

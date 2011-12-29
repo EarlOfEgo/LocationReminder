@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class LRDatabaseHelper extends SQLiteOpenHelper{
-	private static final String DBNAME = "locationreminderdatabase";
+	public static final String DBNAME = "locationreminderdatabase";
 	private static final int DBVERSION = 1;
 	public static final String DB_taskName = "task_name";
 	public static final String DB_taskDescription = "task_descr";
-	public static final String DB_taskID = "task_id";
+	public static final String DB_taskID = "_id";
 	public static final String DB_taskLongitude = "task_long";
 	public static final String DB_taskLatitude = "task_lat";
 	public static final String DB_taskRange = "task_range";
@@ -34,9 +34,10 @@ public class LRDatabaseHelper extends SQLiteOpenHelper{
 	public static final String DB_taskSundayTo = "task_suto";
 	
 	private static final String LocationReminderCreateTable = 
-									"CREATE TABLE " + DB_taskName + " (" +
+									"CREATE TABLE " + DBNAME + " (" +
+									DB_taskName + " TEXT not NULL, " +
 									DB_taskID  + " INTEGER primary key autoincrement, " +
-									DB_taskDescription + "TEXT " +
+									DB_taskDescription + " TEXT, " +
 									DB_taskLongitude + " REAL not NULL, " +
 									DB_taskLatitude + " REAL not NULL, " +
 									DB_taskRange + " REAL not NULL, " +
@@ -71,7 +72,7 @@ public class LRDatabaseHelper extends SQLiteOpenHelper{
 	}
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + DB_taskName);
+		db.execSQL("DROP TABLE IF EXISTS " + DBNAME);
 		onCreate(db);
 	}
 }
