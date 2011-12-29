@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -65,6 +66,7 @@ public class ShowAllTasks extends Activity {
 			View view = super.newView(context, cursor, parent);
 			TextView taskName = (TextView) view.findViewById(R.id.listitem_taskName);
 			View urgencyView = (View) view.findViewById(R.id.listitem_urgencyView);
+			ImageView picture = (ImageView) view.findViewById(R.id.listItemPicture);
 			taskName.setText(cursor.getString(cursor.getColumnIndex(LRDatabaseHelper.DB_taskName)));
 			int urgency = cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskUrgency));
 			if(urgency <= 2)
@@ -73,6 +75,11 @@ public class ShowAllTasks extends Activity {
 				urgencyView.setBackgroundColor(Color.YELLOW);
 			else
 				urgencyView.setBackgroundColor(Color.RED);
+			if(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskExecuted)) != 0)
+				picture.setImageResource(R.drawable.task_solved);
+			else 
+				picture.setImageResource(R.drawable.task_button);
+			
 			return view;
 		}
 		

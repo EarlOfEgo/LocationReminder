@@ -1,5 +1,7 @@
 package com.htwgkonstanz.locationreminder;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRTask;
 
 public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeListener {
@@ -29,6 +32,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 	private Button chooseLocationButton;
 	private Button specifyDaysButton;
 	private boolean locationChosen;
+	private LRDatabaseAdapter dbAdapter;
 	
 	private static final int BACK_FROM_LOCATION_CHOOSING = 1;
 	private static final int BACK_FROM_SPECIFYING_DAYS = 2;
@@ -49,6 +53,9 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		rangeText = (TextView) findViewById(R.id.cnt_range_count);
 		
 		newTask = new LRTask();
+		
+        dbAdapter = new LRDatabaseAdapter(this);
+        dbAdapter.open();
 		
 		taskCanBeSaved = false;
 		saveButton();
@@ -107,17 +114,17 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 			@Override
 			public void onClick(View v) {
 				
-				newTask.setTaskDescription("" + taskDescription.getText());
+				String description = ""+taskDescription.getText();
+				description = description.replace('\n', ' ');
+				newTask.setTaskDescription(description);
 				newTask.setTaskName("" + taskName.getText());
 				newTask.setTaskRange(range);
 				newTask.setTaskUrgency(taskUrgency);
+				newTask.setTaskCreationDate(new Date(System.currentTimeMillis()));
+				newTask.setTaskRemindType(0);
 				
-				Intent intent = new Intent();
-				intent.putExtra("POJO", newTask);
-				if(getParent() == null)
-					setResult(Activity.RESULT_OK, intent);
-				else
-					getParent().setResult(Activity.RESULT_OK, intent);
+				dbAdapter.insertNewTask(newTask);
+				//TODO TOAST
 				finish();
 			}
 		});
@@ -177,16 +184,17 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		switch (requestCode) {
 		case BACK_FROM_LOCATION_CHOOSING:
 			locationChosen = true;
+			newTask = (LRTask) data.getSerializableExtra("POJO");
 			break;
 		
 		case BACK_FROM_SPECIFYING_DAYS:
 			if(resultCode == Activity.RESULT_OK) {
 				newTask = (LRTask) data.getSerializableExtra("POJO");
-				int[][] bla = newTask.getRemindTimeRanges();
-				for (int i = 0; i < bla.length; i++) {
-					
-					System.out.println(i + "->"+bla[i][0]/60 + ":" + bla[i][0]%60 + " bis " + bla[i][1]/60 + ":" + bla[i][1]%60);
-				}
+//				int[][] bla = newTask.getRemindTimeRanges();
+//				for (int i = 0; i < bla.length; i++) {
+//					
+//					System.out.println(i + "->"+bla[i][0]/60 + ":" + bla[i][0]%60 + " bis " + bla[i][1]/60 + ":" + bla[i][1]%60);
+//				}
 			}
 				
 			break;

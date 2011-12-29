@@ -46,6 +46,7 @@ public class LRDatabaseAdapter {
 	
 	public long insertNewTask(LRTask task) {
 		ContentValues contentValues = createAllContentValues(task);
+		System.out.println(contentValues.toString());
 		
 		return database.insert(LRDatabaseHelper.DBNAME, null, contentValues);
 	}
@@ -78,6 +79,8 @@ public class LRDatabaseAdapter {
 		contentValues.put(LRDatabaseHelper.DB_taskCreationDate, task.getTaskCreationDate().getTime());
 		contentValues.put(LRDatabaseHelper.DB_taskRange, task.getTaskRange());
 		contentValues.put(LRDatabaseHelper.DB_taskDescription, task.getTaskDescription());
+		contentValues.put(LRDatabaseHelper.DB_taskReminderType, task.getTaskRemindType());
+		contentValues.put(LRDatabaseHelper.DB_taskUrgency, task.getTaskUrgency());
 		
 		contentValues.put(LRDatabaseHelper.DB_taskMondayFrom, task.getRemindFromSpecific(0));
 		contentValues.put(LRDatabaseHelper.DB_taskTuesdayFrom, task.getRemindFromSpecific(1));

@@ -35,8 +35,8 @@ public class LRDatabaseHelper extends SQLiteOpenHelper{
 	
 	private static final String LocationReminderCreateTable = 
 									"CREATE TABLE " + DBNAME + " (" +
-									DB_taskName + " TEXT not NULL, " +
 									DB_taskID  + " INTEGER primary key autoincrement, " +
+									DB_taskName + " TEXT not NULL, " +
 									DB_taskDescription + " TEXT, " +
 									DB_taskLongitude + " REAL not NULL, " +
 									DB_taskLatitude + " REAL not NULL, " +
