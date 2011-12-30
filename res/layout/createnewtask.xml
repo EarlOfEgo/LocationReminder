@@ -126,9 +126,6 @@
 	            android:id="@+id/textView3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_column="0"
-	            android:layout_row="0"
-	            android:layout_weight="0.00"
 	            android:text="@string/cntV_taskUrgency" />
 	
 	        <RatingBar
@@ -137,9 +134,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_column="1"
 	            android:layout_gravity="bottom|right"
-	            android:layout_row="0"
-	            android:layout_weight="0.00"
-	            android:layout_x="144dp" />
+	            android:layout_x="100dp" />
 	    </AbsoluteLayout>
 	
 	    <View

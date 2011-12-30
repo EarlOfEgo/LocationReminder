@@ -8,55 +8,32 @@
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
         android:layout_height="252dp"
+        android:layout_weight="0.63"
         android:apiKey="0iQ6McrB_8GZ-pAnGPVwlE9xiJjtREuDYgmK6tw"
         android:clickable="true"
         android:enabled="true" />
 
+
+    
+
+    
+
     <GridLayout
-        android:id="@+id/clm_grid1"
+        android:id="@+id/grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <Button
+            android:id="@+id/clom_okButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/clom_cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
     </GridLayout>
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress" >
-
-        <requestFocus />
-    </EditText>
-
-    <AbsoluteLayout
-        android:id="@+id/clm_asb1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="71dp"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="224dp"
-            android:layout_height="wrap_content"
-            android:layout_x="89dp" />
-
-    </AbsoluteLayout>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 </LinearLayout>

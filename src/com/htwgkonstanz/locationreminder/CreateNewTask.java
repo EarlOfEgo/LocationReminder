@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
@@ -40,7 +41,9 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.createnewtask);
+		
 		
 		range = 10;
 		taskUrgency = 1;
@@ -184,7 +187,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		switch (requestCode) {
 		case BACK_FROM_LOCATION_CHOOSING:
 			locationChosen = true;
-			newTask = (LRTask) data.getSerializableExtra("POJO");
+//			newTask = (LRTask) data.getSerializableExtra("POJO");
 			break;
 		
 		case BACK_FROM_SPECIFYING_DAYS:
