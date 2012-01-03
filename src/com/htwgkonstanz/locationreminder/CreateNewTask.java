@@ -125,6 +125,8 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 				newTask.setTaskUrgency(taskUrgency);
 				newTask.setTaskCreationDate(new Date(System.currentTimeMillis()));
 				newTask.setTaskRemindType(0);
+				newTask.setTaskLatitude(376.422006);
+				newTask.setTaskLongitude(-12.084095);
 				
 				dbAdapter.insertNewTask(newTask);
 				//TODO TOAST

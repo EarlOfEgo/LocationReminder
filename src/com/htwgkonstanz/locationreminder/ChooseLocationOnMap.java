@@ -7,7 +7,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -32,12 +35,24 @@ public class ChooseLocationOnMap extends MapActivity {
 		setContentView(R.layout.chooselocationonmap);
 		// Creating and initializing Map
 		gMapView = (MapView) findViewById(R.id.mapView);
+		
+		LinearLayout zoomLayout = (LinearLayout) findViewById(R.id.zoom);
+		View zoomView = gMapView.getZoomControls();
+		zoomLayout.addView(	zoomView,
+							new LinearLayout.LayoutParams(
+									LayoutParams.WRAP_CONTENT,
+									LayoutParams.WRAP_CONTENT));
+		gMapView.displayZoomControls(true);
+		
+		
 		GeoPoint p = new GeoPoint((int) (lat * 1000000), (int) (longi * 1000000));
 		gMapView.setSatellite(true);
 		//get MapController that helps to set/get location, zoom etc.
 		mc = gMapView.getController();
 		mc.setCenter(p);
 		mc.setZoom(14);
+		
+		gMapView.displayZoomControls(true);
 		
 		
 		List<Overlay> mapOverlays = gMapView.getOverlays();
@@ -49,6 +64,8 @@ public class ChooseLocationOnMap extends MapActivity {
 		
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
+		
+		mc.setCenter(point);
 	}
 
 	@Override
@@ -66,10 +83,10 @@ public class ChooseLocationOnMap extends MapActivity {
 			super(boundCenterBottom(defaultMarker));
 		}
 		
-		public TasksOverlay(Drawable defaultMarker, Context context) {
-			super(defaultMarker);
-		  	mContext = context;
-		}
+//		public TasksOverlay(Drawable defaultMarker, Context context) {
+//			super(defaultMarker);
+//		  	mContext = context;
+//		}
 		
 		public void addOverlay(OverlayItem overlay) {
 		    mOverlays.add(overlay);
@@ -95,6 +112,8 @@ public class ChooseLocationOnMap extends MapActivity {
 		  dialog.show();
 		  return true;
 		}
+		
+		
 		
 	}
 

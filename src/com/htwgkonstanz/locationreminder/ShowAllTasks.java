@@ -33,7 +33,6 @@ public class ShowAllTasks extends Activity {
 		dbAdapter.open();
 		
 		listOfTasks = (ListView) findViewById(R.id.listoftasks_listView);
-		if(listOfTasks == null) System.out.println("ICH");
 		
 		populateDate();
 	}
@@ -77,6 +76,7 @@ public class ShowAllTasks extends Activity {
 				urgencyView.setBackgroundColor(Color.YELLOW);
 			else
 				urgencyView.setBackgroundColor(Color.RED);
+			
 			if(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskExecuted)) != 0)
 				picture.setImageResource(R.drawable.task_solved);
 			else 

@@ -19,7 +19,8 @@ public class LocationReminderActivity extends Activity {
         setContentView(R.layout.main);
         
         showAllTasksButton();
-        createNewTaskButton();        
+        createNewTaskButton();  
+        startService(new Intent(this, LocationProvider.class));
     }
 
 	private void showAllTasksButton() {
