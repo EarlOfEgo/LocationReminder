@@ -7,6 +7,11 @@ import android.os.Bundle;
 public class GoogleMaps implements LocationListener {
 	private double latitude;
 	private double longitude;
+	
+	public GoogleMaps(Context context) {
+		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 5, this);
+	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -28,19 +33,7 @@ public class GoogleMaps implements LocationListener {
 		}
 	}
 
-	public LocationTuple getLocation(Context context) {
-		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		String provider = lm.getBestProvider(criteria, true);
-		Location mostRecentLocation = lm.getLastKnownLocation(provider);
-		if (mostRecentLocation != null) {
-			latitude = mostRecentLocation.getLatitude();
-			longitude = mostRecentLocation.getLongitude();
-		}
-		lm.requestLocationUpdates(provider, 1, 0, this);
-
+	public LocationTuple getLocation() {		
 		return new LocationTuple(longitude, latitude);
 	}
 }

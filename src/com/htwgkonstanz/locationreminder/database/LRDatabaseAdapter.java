@@ -13,6 +13,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.text.format.Time;
 
+import static com.htwgkonstanz.locationreminder.CollectionTools.*;
+
 public class LRDatabaseAdapter {
 	private Context context;
 	private LRDatabaseHelper dbHelper;
@@ -98,45 +100,66 @@ public class LRDatabaseAdapter {
 	}
 
 	private String getTimeDependentQuery(Time currentTime) {
-		String[] daysFrom = { LRDatabaseHelper.DB_taskMondayFrom, LRDatabaseHelper.DB_taskTuesdayFrom, LRDatabaseHelper.DB_taskWednesdayFrom, LRDatabaseHelper.DB_taskThursdayFrom, LRDatabaseHelper.DB_taskFridayFrom, LRDatabaseHelper.DB_taskSaturdayFrom, LRDatabaseHelper.DB_taskSundayFrom };
-		String[] daysTo = { LRDatabaseHelper.DB_taskMondayTo, LRDatabaseHelper.DB_taskTuesdayTo, LRDatabaseHelper.DB_taskWednesdayTo, LRDatabaseHelper.DB_taskThursdayTo, LRDatabaseHelper.DB_taskFridayTo, LRDatabaseHelper.DB_taskSaturdayTo, LRDatabaseHelper.DB_taskSundayTo };
-		String query = "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + daysFrom[currentTime.weekDay] + " >= " + currentTime.hour * 60 + currentTime.minute + " AND" + daysTo[currentTime.weekDay] + " <= " + currentTime.hour * 60 + currentTime.minute + ";";
+		int timeInMinutes = currentTime.hour * 60 + currentTime.minute;
+		String[] daysFrom = { LRDatabaseHelper.DB_taskSundayFrom, LRDatabaseHelper.DB_taskMondayFrom, LRDatabaseHelper.DB_taskTuesdayFrom, LRDatabaseHelper.DB_taskWednesdayFrom, LRDatabaseHelper.DB_taskThursdayFrom, LRDatabaseHelper.DB_taskFridayFrom, LRDatabaseHelper.DB_taskSaturdayFrom };
+		String[] daysTo = { LRDatabaseHelper.DB_taskSundayTo, LRDatabaseHelper.DB_taskMondayTo, LRDatabaseHelper.DB_taskTuesdayTo, LRDatabaseHelper.DB_taskWednesdayTo, LRDatabaseHelper.DB_taskThursdayTo, LRDatabaseHelper.DB_taskFridayTo, LRDatabaseHelper.DB_taskSaturdayTo };
+		String query = "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + daysFrom[currentTime.weekDay] + " <= " + timeInMinutes + " AND " + daysTo[currentTime.weekDay] + " >= " + timeInMinutes + ";";
 		return query;
 	}
 
 	private List<Integer> getAllTasksIds(String query) {
 		Cursor cursor = database.rawQuery(query, null);
-		if (cursor != null)
-			cursor.moveToFirst();
 		List<Integer> ids = new ArrayList<Integer>();
-		do {
-			ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));
-			cursor.moveToNext();
-		} while (!cursor.isLast());
+		if (cursor != null) {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));
+				cursor.moveToNext();
+			}
+			cursor.close();
+		}
 		return ids;
 	}
 
 	public List<Integer> getTasksIds(LocationTuple currentLocation, double range) {
 		String query = getLocationDependentQuery(currentLocation);
 		Cursor cursor = database.rawQuery(query, null);
-		if (cursor != null)
-			cursor.moveToFirst();
 		List<Integer> ids = new ArrayList<Integer>();
-		do {
-			double latitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLatitude));
-			double longitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLongitude));
-			float[] resultsc = new float[10];
-			Location.distanceBetween(currentLocation.latitude, currentLocation.longitude, latitude, longitude, resultsc);
-			if(range >= resultsc[0])
-				ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));			
-			cursor.moveToNext();
-		} while (!cursor.isLast());
-		
+		if (cursor != null) {
+			cursor.moveToFirst();
+
+			while (!cursor.isAfterLast()) {
+				double latitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLatitude));
+				double longitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLongitude));
+				float[] resultsc = new float[10];
+				Location.distanceBetween(currentLocation.latitude, currentLocation.longitude, latitude, longitude, resultsc);
+				if (range >= resultsc[0])
+					ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));
+				cursor.moveToNext();
+			}
+			cursor.close();
+		}
+
 		return ids;
 	}
 
 	private String getLocationDependentQuery(LocationTuple currentLocation) {
 		return "SELECT * FROM " + LRDatabaseHelper.DBNAME + ";";
 
+	}
+
+	public Cursor getNearTasks(ArrayList<Integer> ids) {
+		String query = getQueryByIDs(ids);
+		System.out.println(query);
+		Cursor cursor = database.rawQuery(query, null);
+		if (cursor != null)
+			cursor.moveToFirst();
+		return cursor;
+	}
+
+	private String getQueryByIDs(ArrayList<Integer> ids) {
+		String seperator = " == " + LRDatabaseHelper.DB_taskID + " OR ";
+		String where = makeString(ids, seperator) + " == " + LRDatabaseHelper.DB_taskID;
+		return "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + where + ";" ;
 	}
 }

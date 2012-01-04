@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <AbsoluteLayout
+        android:id="@+id/cnt_grid_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <SeekBar
+            android:id="@+id/pv_specifyRangeSeekBar"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_x="59dp"
+            android:layout_y="19dp" />
+
+        <TextView
+            android:id="@+id/pv_range_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="13dp"
+            android:layout_y="24dp"
+            android:text="00.0"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="2dp"
+            android:layout_y="2dp"
+            android:text="@string/cntV_taskSpecifyRange"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </AbsoluteLayout>
+
+    <GridLayout
+        android:id="@+id/pv_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/pv_okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok" />
+        
+         <Button
+             android:id="@+id/pv_cancelButton"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/cancel" />
+
+    </GridLayout>
+
+
+
+</LinearLayout>

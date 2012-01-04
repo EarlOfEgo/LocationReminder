@@ -155,37 +155,7 @@
 	        android:layout_height="2dp"
 	        android:background="#33b5e5" />
 	
-	    <AbsoluteLayout
-	        android:id="@+id/cnt_grid_3"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	
-	        <SeekBar
-	            android:id="@+id/cnt_specifyRangeSeekBar"
-	            android:layout_width="242dp"
-	            android:layout_height="wrap_content"
-	            android:layout_x="59dp"
-	            android:layout_y="19dp" />
-	
-	        <TextView
-	            android:id="@+id/cnt_range_count"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_x="13dp"
-	            android:layout_y="24dp"
-	            android:text="00.0"
-	            android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	        <TextView
-	            android:id="@+id/textView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_x="2dp"
-	            android:layout_y="2dp"
-	            android:text="@string/cntV_taskSpecifyRange"
-	            android:textAppearance="?android:attr/textAppearanceSmall" />
-	
-	    </AbsoluteLayout>
+	   
 		<View
 	        android:id="@+id/line7"
 	        android:layout_width="wrap_content"

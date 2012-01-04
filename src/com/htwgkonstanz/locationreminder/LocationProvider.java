@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.text.format.Time;
 
@@ -26,12 +27,12 @@ public class LocationProvider extends Service {
 
 	@Override
 	public void onCreate() {
-		System.out.println("ONCREATE");
 		super.onCreate();
 		
 		timer = new Timer();
 		dbAdapter = new LRDatabaseAdapter(this);
 		dbAdapter.open();
+		googleMaps = new GoogleMaps(this);
 		startLocationProvider();
 	}
 
@@ -39,25 +40,20 @@ public class LocationProvider extends Service {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("run");
 				Time currentTime = getCurrentTime();
 				if (timeIsRight(currentTime)) {
-					System.out.println("time is right");
-					LocationTuple currentLocation = googleMaps.getLocation(null);
+					LocationTuple currentLocation = googleMaps.getLocation();
 					if (locationIsRight(currentLocation)) {
-						System.out.println("location is right");
 						alarmTheUser(currentLocation, currentTime);
 					}
 				}
 			}
 
 			private void alarmTheUser(LocationTuple currentLocation, Time currentTime) {
-				List<Integer> ids = intersect(getTasksIds(currentLocation), getTasksIds(currentTime));
+				ArrayList<Integer> ids = intersect(getTasksIds(currentLocation), getTasksIds(currentTime));
 				if(ids.isEmpty()) 
 					return;
-				
-				System.out.println(ids);
-				
+								
 				Context context = getApplicationContext();
 				NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 				Notification tasksOpen = new Notification();
@@ -65,7 +61,8 @@ public class LocationProvider extends Service {
 				tasksOpen.tickerText = "TODO- TICKER TEXT";
 				tasksOpen.when = System.currentTimeMillis();
 				
-				Intent notificationIntent = new Intent(context, ShowAllTasks.class); //TODO
+				Intent notificationIntent = new Intent(context, ShowNearTasks.class);
+				notificationIntent.putExtra("IDS", ids);
 				PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
 				
 				tasksOpen.setLatestEventInfo(context, "LALA", Arrays.toString(ids.toArray()), intent);
@@ -73,8 +70,8 @@ public class LocationProvider extends Service {
 				
 			}
 
-			private List<Integer> intersect(List<Integer> locationIDs, List<Integer> timeIDs) {
-				List<Integer> ids = new ArrayList<Integer>();
+			private ArrayList<Integer> intersect(List<Integer> locationIDs, List<Integer> timeIDs) {
+				ArrayList<Integer> ids = new ArrayList<Integer>();
 				for (Integer id : locationIDs)
 					if (timeIDs.contains(id))
 						ids.add(id);
@@ -91,8 +88,7 @@ public class LocationProvider extends Service {
 			}
 
 			private double getRange() {
-				// TODO Auto-generated method stub
-				return 100;
+				return getSharedPreferences("prefs", 0).getInt("RANGE", 100);
 			}
 
 			private boolean timeIsRight(Time currentTime) {
@@ -114,7 +110,7 @@ public class LocationProvider extends Service {
 
 	private long getPeriod() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 1000;
 	}
 
 	@Override

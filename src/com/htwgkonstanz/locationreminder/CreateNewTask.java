@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRTask;
 
-public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeListener {
+public class CreateNewTask extends Activity {
 
 	private TextView taskName;
 	private RatingBar urgencyRatingBar;
@@ -51,9 +51,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		taskName = (TextView) findViewById(R.id.cnt_taskName);
 		taskDescription = (TextView) findViewById(R.id.cnt_taskDescriptionEditText);
 		
-		rangeSeekBar = (SeekBar) findViewById(R.id.cnt_specifyRangeSeekBar);
-		rangeSeekBar.setOnSeekBarChangeListener(this);
-		rangeText = (TextView) findViewById(R.id.cnt_range_count);
+
 		
 		newTask = new LRTask();
 		
@@ -68,7 +66,6 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		chooseLocationButton();
 		urgencySettings();
 		urgencySettings();
-		updateDisplayedInformations();
 	}
 
 	private void specifyDaysButton() {
@@ -125,8 +122,8 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 				newTask.setTaskUrgency(taskUrgency);
 				newTask.setTaskCreationDate(new Date(System.currentTimeMillis()));
 				newTask.setTaskRemindType(0);
-				newTask.setTaskLatitude(376.422006);
-				newTask.setTaskLongitude(-12.084095);
+				newTask.setTaskLatitude(37.422005);
+				newTask.setTaskLongitude(-122.084095);
 				
 				dbAdapter.insertNewTask(newTask);
 				//TODO TOAST
@@ -158,28 +155,7 @@ public class CreateNewTask extends Activity implements SeekBar.OnSeekBarChangeLi
 		});
 	}
 
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress,
-			boolean fromUser) {
-		range = (progress + 5)*2;
-		updateDisplayedInformations();
-		
-	}
 
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-		updateDisplayedInformations();		
-	}
-
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		updateDisplayedInformations();		
-	}	
-	
-	
-	private void updateDisplayedInformations() {
-		rangeText.setText("" + range + " m");
-	}
 	
 	
 	@Override
