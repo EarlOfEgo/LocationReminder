@@ -27,6 +27,9 @@
     <string name="main_createNewTask">Create new task</string>
     <string name="main_showAllTask">Show all task</string>
     
+    <string name="clom_search">Search location</string>
+    <string name="clom_title">Enter a location</string>
+    
     <!-- chooseremindingtime view elements -->
     <string name="to">to</string>
     <string name="monday">Monday</string>
@@ -36,4 +39,8 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    
+    <string name="editTask">Edit Task</string>
+    <string name="deleteTask">Delete Task</string>
+    <string name="completeTask">Complete Task</string>
 </resources>

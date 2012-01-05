@@ -8,24 +8,26 @@ import android.view.Window;
 import android.widget.Button;
 
 public class LocationReminderActivity extends Activity {
-    private Button createNewTaskButton;
+	private Button createNewTaskButton;
 	private Button showAllTasksButton;
+	private Button showSettingsButton;
 
 	/** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main);
-        
-        showAllTasksButton();
-        createNewTaskButton();  
-        startService(new Intent(this, LocationProvider.class));
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.main);
+
+		showAllTasksButton();
+		showSettingsButton();
+		createNewTaskButton();
+		startService(new Intent(this, LocationProvider.class));
+	}
 
 	private void showAllTasksButton() {
 		showAllTasksButton = (Button) findViewById(R.id.main_showAllTaskButton);
-        showAllTasksButton.setOnClickListener(new View.OnClickListener() {			
+		showAllTasksButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LocationReminderActivity.this, ShowAllTasks.class);
@@ -34,14 +36,25 @@ public class LocationReminderActivity extends Activity {
 		});
 	}
 
+	private void showSettingsButton() {
+		showSettingsButton = (Button) findViewById(R.id.MainSettingsButton);
+		showSettingsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LocationReminderActivity.this, Preferences.class);
+				startActivity(intent);
+			}
+		});
+	}
+
 	private void createNewTaskButton() {
 		createNewTaskButton = (Button) findViewById(R.id.main_createNewTaskButton);
-        createNewTaskButton.setOnClickListener(new View.OnClickListener() {			
+		createNewTaskButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LocationReminderActivity.this, CreateNewTask.class);
 				startActivity(intent);
-				
+
 			}
 		});
 	}

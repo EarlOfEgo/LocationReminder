@@ -40,7 +40,6 @@ public class LRDatabaseAdapter {
 
 	public long insertNewTask(LRTask task) {
 		ContentValues contentValues = createAllContentValues(task);
-		System.out.println(contentValues.toString());
 
 		return database.insert(LRDatabaseHelper.DBNAME, null, contentValues);
 	}
@@ -161,5 +160,15 @@ public class LRDatabaseAdapter {
 		String seperator = " == " + LRDatabaseHelper.DB_taskID + " OR ";
 		String where = makeString(ids, seperator) + " == " + LRDatabaseHelper.DB_taskID;
 		return "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + where + ";" ;
+	}
+
+	public void deleteTask(int id) {
+		database.delete(LRDatabaseHelper.DBNAME, LRDatabaseHelper.DB_taskID + "=" + id, null);
+	}
+
+	public void completeTask(int id) {
+		ContentValues values = new ContentValues();
+		values.put(LRDatabaseHelper.DB_taskExecuted, 1);
+		database.update(LRDatabaseHelper.DBNAME, values, LRDatabaseHelper.DB_taskID + " = " + id, null);
 	}
 }

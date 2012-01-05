@@ -18,12 +18,9 @@
         android:layout_height="wrap_content" 
         android:layout_alignParentBottom="true" 
         android:layout_centerHorizontal="true" 
-        /> 
+        />
 
-    
-
-    
-
+   
     <GridLayout
         android:id="@+id/grid"
         android:layout_width="wrap_content"
@@ -40,6 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel" />
+        
+         <Button
+	        android:id="@+id/clom_searchButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.63"
+	        android:text="@string/clom_search" />
+        
     </GridLayout>
 
 </LinearLayout>

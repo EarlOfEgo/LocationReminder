@@ -1,16 +1,28 @@
 package com.htwgkonstanz.locationreminder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -25,9 +37,8 @@ public class ChooseLocationOnMap extends MapActivity {
 	private MapView gMapView;
 	private double longi;
 	private double lat;
-	private MapController mc;
+	private MapController controller;
 
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,62 +46,129 @@ public class ChooseLocationOnMap extends MapActivity {
 		setContentView(R.layout.chooselocationonmap);
 		// Creating and initializing Map
 		gMapView = (MapView) findViewById(R.id.mapView);
-		
-		LinearLayout zoomLayout = (LinearLayout) findViewById(R.id.zoom);
-		View zoomView = gMapView.getZoomControls();
-		zoomLayout.addView(	zoomView,
-							new LinearLayout.LayoutParams(
-									LayoutParams.WRAP_CONTENT,
-									LayoutParams.WRAP_CONTENT));
-		gMapView.displayZoomControls(true);
-		
-		
-		GeoPoint p = new GeoPoint((int) (lat * 1000000), (int) (longi * 1000000));
+
+		 GeoPoint p1 = new GeoPoint((int) (lat * 1000000), (int) (longi * 1000000));
 		gMapView.setSatellite(true);
-		//get MapController that helps to set/get location, zoom etc.
-		mc = gMapView.getController();
-		mc.setCenter(p);
-		mc.setZoom(14);
-		
+		// get MapController that helps to set/get location, zoom etc.
+		controller = gMapView.getController();
+		controller.setCenter(p1);
+		controller.setZoom(14);
+
 		gMapView.displayZoomControls(true);
 		
-		
+		Button searchButton = (Button) findViewById(R.id.clom_searchButton);
+		searchButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				final Dialog dialog = new Dialog(ChooseLocationOnMap.this);
+				dialog.setContentView(R.layout.searchlocationdialog);
+				
+				Button okButton = (Button) dialog.findViewById(R.id.searchLocationOkButton);
+				okButton.setOnClickListener(new OnClickListener() {
+					
+					private List<Overlay> listOfOverlays;
+
+					@Override
+					public void onClick(View v) {
+						System.out.println("First line");
+						Geocoder geoCoder = new Geocoder(ChooseLocationOnMap.this);
+						TextView address = (TextView) dialog.findViewById(R.id.searchLocationTextField);
+						
+						List<Address> addresses = null;
+						try {
+							addresses = geoCoder.getFromLocationName(address.getText().toString(), 5);
+						} catch (IOException e) {
+							System.out.println(e);
+						}
+						
+						if (addresses.size() > 0) {
+							GeoPoint p = new GeoPoint((int) (addresses.get(0).getLatitude() * 1E6), (int) (addresses.get(0).getLongitude() * 1E6));
+
+							controller.animateTo(p);
+							controller.setZoom(12);
+
+							MapOverlay mapOverlay = new MapOverlay(p);
+							listOfOverlays = gMapView.getOverlays();
+							listOfOverlays.clear();
+							listOfOverlays.add(mapOverlay);
+
+							gMapView.invalidate();
+//							txtsearch.setText("");
+						} else {
+							AlertDialog.Builder adb = new AlertDialog.Builder(ChooseLocationOnMap.this);
+							adb.setTitle("Google Map");
+							adb.setMessage("Please Provide the Proper Place");
+							adb.setPositiveButton("Close", null);
+							adb.show();
+						}
+						dialog.dismiss();
+						System.out.println("Last line");
+					
+					}
+				});
+				dialog.show();
+			}
+		});
+
+		Button okButton = (Button) findViewById(R.id.clom_okButton);
+		okButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+
 		List<Overlay> mapOverlays = gMapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.task_solved);
 		TasksOverlay itemizedoverlay = new TasksOverlay(drawable);
-		
-		GeoPoint point = new GeoPoint(19240000,-99120000);
+
+		GeoPoint point = new GeoPoint(19240000, -99120000);
 		OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
-		
+
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
-		
-		mc.setCenter(point);
+
+		controller.setCenter(point);
 	}
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	private class TasksOverlay extends ItemizedOverlay {
-		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-		private Context mContext;
+
+	class MapOverlay extends com.google.android.maps.Overlay {
+		GeoPoint p;
+		public MapOverlay(GeoPoint p) {
+			this.p = p;
+		}
+		
+		public boolean draw(Canvas canvas, MapView mapView, boolean shadow, long when) {
+			super.draw(canvas, mapView, shadow);
+
+			// ---translate the GeoPoint to screen pixels---
+			Point screenPts = new Point();
+			mapView.getProjection().toPixels(p, screenPts);
+
+			// ---add the marker---
+			Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.task_solved);
+			canvas.drawBitmap(bmp, screenPts.x, screenPts.y - 32, null);
+			return true;
+		}
+	}
+
+	private class TasksOverlay extends ItemizedOverlay<OverlayItem> {
+		private final ArrayList<OverlayItem> mOverlays;
 
 		public TasksOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));
+			mOverlays = new ArrayList<OverlayItem>();
 		}
-		
-//		public TasksOverlay(Drawable defaultMarker, Context context) {
-//			super(defaultMarker);
-//		  	mContext = context;
-//		}
-		
+
 		public void addOverlay(OverlayItem overlay) {
-		    mOverlays.add(overlay);
-		    populate();
+			mOverlays.add(overlay);
+			populate();
 		}
 
 		@Override
@@ -102,19 +180,6 @@ public class ChooseLocationOnMap extends MapActivity {
 		public int size() {
 			return mOverlays.size();
 		}
-		
-		@Override
-		protected boolean onTap(int index) {
-		  OverlayItem item = mOverlays.get(index);
-		  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		  dialog.setTitle(item.getTitle());
-		  dialog.setMessage(item.getSnippet());
-		  dialog.show();
-		  return true;
-		}
-		
-		
-		
 	}
 
 }

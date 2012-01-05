@@ -1,3 +1,4 @@
+package com.htwgkonstanz.locationreminder;
 import com.htwgkonstanz.locationreminder.R;
 
 import android.app.Activity;
@@ -27,9 +28,10 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 
 		rangeSeekBar = (SeekBar) findViewById(R.id.pv_specifyRangeSeekBar);
 		rangeSeekBar.setOnSeekBarChangeListener(this);
-		rangeText = (TextView) findViewById(R.id.pv_range_count);
 		
-		updateDisplayedInformations();
+		rangeText = (TextView) findViewById(R.id.pv_range_count);
+		rangeSeekBar.setProgress(range);
+		updateDisplayedInformation();
 		
 		okButton = (Button) findViewById(R.id.pv_okButton);
 		okButton.setOnClickListener(new OnClickListener() {
@@ -42,26 +44,34 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 				finish();
 			}
 		});
+		
+		Button cancelButton = (Button) findViewById(R.id.pv_cancelButton);
+		cancelButton.setOnClickListener(new OnClickListener() {	
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		range = (progress + 5) * 2;
-		updateDisplayedInformations();
+		range = progress;
+		updateDisplayedInformation();
 
 	}
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		updateDisplayedInformations();
+		updateDisplayedInformation();
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		updateDisplayedInformations();
+		updateDisplayedInformation();
 	}
 
-	private void updateDisplayedInformations() {
+	private void updateDisplayedInformation() {
 		rangeText.setText("" + range + " m");
 	}
 }

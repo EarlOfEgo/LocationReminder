@@ -38,4 +38,12 @@
         android:text="@string/main_createNewTask"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <Button
+        android:id="@+id/MainSettingsButton"
+        android:layout_width="116dp"
+        android:layout_height="96dp"
+        android:layout_x="95dp"
+        android:layout_y="164dp"
+        android:background="@drawable/task_button" />
+
 </AbsoluteLayout>
