@@ -47,29 +47,32 @@ public class SpecifyDaysAndTime extends Activity {
 	private CheckBox saturdayCheckBox;
 	private CheckBox sundayCheckBox;
 	
-	private static final int MONDAY = 0;
-	private static final int TUESDAY = 1;
-	private static final int WEDNESDAY = 2;
-	private static final int THURSDAY = 3;
-	private static final int FRIDAY = 4;
-	private static final int SATURDAY = 5;
-	private static final int SUNDAY = 6;
+	private static final int SUNDAY = 0;
+	private static final int MONDAY = 1;
+	private static final int TUESDAY = 2;
+	private static final int WEDNESDAY = 3;
+	private static final int THURSDAY = 4;
+	private static final int FRIDAY = 5;
+	private static final int SATURDAY = 6;
 	
-	private static final int MONDAY_FROM = 0;
-	private static final int TUESDAY_FROM = 1;
-	private static final int WEDNESDAY_FROM = 2;
-	private static final int THURSDAY_FROM = 3;
-	private static final int FRIDAY_FROM = 4;
-	private static final int SATURDAY_FROM = 5;
-	private static final int SUNDAY_FROM = 6;
 	
-	private static final int MONDAY_TO = 7;
-	private static final int TUESDAY_TO = 8;
-	private static final int WEDNESDAY_TO = 9;
-	private static final int THURSDAY_TO = 10;
-	private static final int FRIDAY_TO = 11;
-	private static final int SATURDAY_TO = 12;
-	private static final int SUNDAY_TO = 13;
+	private static final int SUNDAY_FROM = 0;
+	private static final int MONDAY_FROM = 1;
+	private static final int TUESDAY_FROM = 2;
+	private static final int WEDNESDAY_FROM = 3;
+	private static final int THURSDAY_FROM = 4;
+	private static final int FRIDAY_FROM = 5;
+	private static final int SATURDAY_FROM = 6;
+	
+	
+	private static final int SUNDAY_TO = 7;
+	private static final int MONDAY_TO = 8;
+	private static final int TUESDAY_TO = 9;
+	private static final int WEDNESDAY_TO = 10;
+	private static final int THURSDAY_TO = 11;
+	private static final int FRIDAY_TO = 12;
+	private static final int SATURDAY_TO = 13;
+	
 	
 	private static final int HOUR = 0;
 	private static final int MINUTE = 1;
@@ -99,18 +102,18 @@ public class SpecifyDaysAndTime extends Activity {
 		setContentView(R.layout.chooseremindingtime);
 		
 
-		task = (LRTask) getIntent().getSerializableExtra("POJO");
+		task = (LRTask) getIntent().getSerializableExtra("TASK");
 	
 		okButton();
 		cancelButton();
 		getCheckBoxes();
-		
+		getTextFields();
+		getGrids();
 		
 		if(task == null) {
 			task = new LRTask();
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 7; i++) 
 				everythingOk[i] = true;
-			}
 		} else {
 			for (int i = 0; i < 7; i++) {
 				fromTime[i][0] = task.getRemindFromSpecific(i)/60;
@@ -128,9 +131,9 @@ public class SpecifyDaysAndTime extends Activity {
 			sundayCheckBox.setChecked((task.getRemindFromSpecific(SUNDAY) == 0 && task.getRemindToSpecific(SUNDAY) == 0) ? false : true);
 		}
 		
-		getTextFields();
 		
-		getGrids();
+		
+		
 		
 		enOrDisableTextFields();
 		updateDisplays();
@@ -543,7 +546,7 @@ public class SpecifyDaysAndTime extends Activity {
 				}
 				task.setRemindTimeRanges(allranges);
 				Intent intent = new Intent();
-				intent.putExtra("POJO", task);
+				intent.putExtra("TASK", task);
 				if(getParent() == null) {
 					setResult(Activity.RESULT_OK, intent);
 				} else {

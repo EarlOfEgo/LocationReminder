@@ -13,6 +13,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.IBinder;
 import android.text.format.Time;
 
@@ -42,14 +43,18 @@ public class LocationProvider extends Service {
 			public void run() {
 				Time currentTime = getCurrentTime();
 				if (timeIsRight(currentTime)) {
+					System.out.println("time is right");
 					LocationTuple currentLocation = googleMaps.getLocation();
+					System.out.println(currentLocation);
 					if (locationIsRight(currentLocation)) {
+						System.out.println("location is right");
 						alarmTheUser(currentLocation, currentTime);
 					}
 				}
 			}
 
 			private void alarmTheUser(LocationTuple currentLocation, Time currentTime) {
+				System.out.println(getTasksIds(currentLocation));
 				ArrayList<Integer> ids = intersect(getTasksIds(currentLocation), getTasksIds(currentTime));
 				if(ids.isEmpty()) 
 					return;
@@ -58,15 +63,28 @@ public class LocationProvider extends Service {
 				NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 				Notification tasksOpen = new Notification();
 				tasksOpen.icon = R.drawable.task_solved;
-				tasksOpen.tickerText = "TODO- TICKER TEXT";
+				Resources res = getResources();
+				
+				tasksOpen.tickerText = res.getString(R.string.notificationText);
 				tasksOpen.when = System.currentTimeMillis();
 				
 				Intent notificationIntent = new Intent(context, ShowNearTasks.class);
 				notificationIntent.putExtra("IDS", ids);
 				PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
 				
-				tasksOpen.setLatestEventInfo(context, "LALA", Arrays.toString(ids.toArray()), intent);
+				tasksOpen.setLatestEventInfo(context, res.getString(R.string.notificationTitle), res.getString(R.string.notificationText), intent);
 				manager.notify(0, tasksOpen);
+				
+				SharedPreferences settings = getSharedPreferences("prefs", 0);
+				System.out.println(settings.getBoolean("ALARM", false));
+				if(settings.getBoolean("ALARM", false)) {
+					if(settings.getBoolean("VIBRATOR", false)) {
+						System.out.println("RRR RRR");
+					}
+					if(settings.getBoolean("SOUND", false)) {
+						System.out.println("RING RING");
+					}
+				}
 				
 			}
 

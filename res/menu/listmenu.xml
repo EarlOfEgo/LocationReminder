@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/showTask"
+        android:title="@string/showTask"/>
+    <!-- android:icon="@drawable/ic_help" -->
+        <item
         android:id="@+id/editTask"
         android:title="@string/editTask"/>
     <!-- android:icon="@drawable/ic_help" -->

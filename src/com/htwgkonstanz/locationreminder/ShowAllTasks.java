@@ -1,19 +1,13 @@
 package com.htwgkonstanz.locationreminder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +19,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseHelper;
+import com.htwgkonstanz.locationreminder.database.LRTask;
 
 public class ShowAllTasks extends Activity {
 
@@ -106,6 +100,7 @@ public class ShowAllTasks extends Activity {
 			ImageView picture = (ImageView) view.findViewById(R.id.listItemPicture);
 			taskName.setText(cursor.getString(cursor.getColumnIndex(LRDatabaseHelper.DB_taskName)));
 			int urgency = cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskUrgency));
+			System.out.println(urgency);
 			if (urgency <= 2)
 				urgencyView.setBackgroundColor(Color.GREEN);
 			else if (urgency > 2 && urgency <= 4)
@@ -125,9 +120,23 @@ public class ShowAllTasks extends Activity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		Intent intent;
+		LRTask task;
 		switch (item.getItemId()) {
-		case R.id.editTask:
+		case R.id.showTask:
+			intent = new Intent(this, ShowTask.class);
+			task = new LRTask();
+			task = dbAdapter.getFullTaskById(id);
+			intent.putExtra("TASK", task);
+			startActivity(intent);
+			break;
 
+		case R.id.editTask:
+			intent = new Intent(this, EditTask.class);
+			task = new LRTask();
+			task = dbAdapter.getFullTaskById(id);
+			intent.putExtra("TASK", task);
+			startActivityForResult(intent, 10);
 			break;
 		case R.id.deleteTask:
 			dbAdapter.deleteTask(id);
@@ -140,5 +149,11 @@ public class ShowAllTasks extends Activity {
 		}
 		populateDate();
 		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		populateDate();
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

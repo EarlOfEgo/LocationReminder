@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRTask;
 
-public class CreateNewTask extends Activity {
+public class EditTask extends Activity {
 
 	private TextView taskName;
 	private RatingBar urgencyRatingBar;
@@ -24,7 +24,7 @@ public class CreateNewTask extends Activity {
 	private Button saveButton;
 	private Button cancelButton;
 	private Boolean taskCanBeSaved;
-	private LRTask newTask;
+	private LRTask task;
 	private SeekBar rangeSeekBar;
 	private TextView rangeText;
 	private int range;
@@ -34,7 +34,7 @@ public class CreateNewTask extends Activity {
 	private Button specifyDaysButton;
 	private boolean locationChosen;
 	private LRDatabaseAdapter dbAdapter;
-	
+
 	private static final int BACK_FROM_LOCATION_CHOOSING = 1;
 	private static final int BACK_FROM_SPECIFYING_DAYS = 2;
 	private LocationTuple locationTuple;
@@ -44,21 +44,25 @@ public class CreateNewTask extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.createnewtask);
-		
-		
+
 		range = 10;
 		taskUrgency = 1;
-		
+
 		taskName = (TextView) findViewById(R.id.cnt_taskName);
 		taskDescription = (TextView) findViewById(R.id.cnt_taskDescriptionEditText);
-		
 
-		
-		newTask = new LRTask();
-		
-        dbAdapter = new LRDatabaseAdapter(this);
-        dbAdapter.open();
-		
+		task = (LRTask) getIntent().getSerializableExtra("TASK");
+		if (task != null) {
+			taskName.setText(task.getTaskName());
+			taskDescription.setText(task.getTaskDescription());
+			locationTuple = new LocationTuple(task.getTaskLongitude(), task.getTaskLatitude());
+		} else {
+			locationTuple = new LocationTuple(0, 0);
+		}
+
+		dbAdapter = new LRDatabaseAdapter(this);
+		dbAdapter.open();
+
 		taskCanBeSaved = false;
 		saveButton();
 		cancelButton();
@@ -71,10 +75,11 @@ public class CreateNewTask extends Activity {
 	private void specifyDaysButton() {
 		specifyDaysButton = (Button) findViewById(R.id.cnt_chooseDaysButton);
 		specifyDaysButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(CreateNewTask.this, SpecifyDaysAndTime.class);
+				Intent intent = new Intent(EditTask.this, SpecifyDaysAndTime.class);
+				intent.putExtra("TASK", task);
 				startActivityForResult(intent, BACK_FROM_SPECIFYING_DAYS);
 			}
 		});
@@ -83,10 +88,11 @@ public class CreateNewTask extends Activity {
 	private void chooseLocationButton() {
 		chooseLocationButton = (Button) findViewById(R.id.cnt_chooseLocationButton);
 		chooseLocationButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(CreateNewTask.this, ChooseLocationOnMap.class);
+				Intent intent = new Intent(EditTask.this, ChooseLocationOnMap.class);
+				intent.putExtra("TASK", task);
 				startActivityForResult(intent, BACK_FROM_LOCATION_CHOOSING);
 			}
 		});
@@ -95,45 +101,48 @@ public class CreateNewTask extends Activity {
 	private void urgencySettings() {
 		urgencyRatingBar = (RatingBar) findViewById(R.id.cnt_setUrgency);
 		urgencyRatingBar.setStepSize(1);
-		urgencyRatingBar.setRating(2);
+
+		if (task != null) {
+			taskUrgency = task.getTaskUrgency();
+			urgencyRatingBar.setRating(taskUrgency);
+		} else
+			urgencyRatingBar.setRating(2);
+
 		urgencyRatingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
-			
+
 			@Override
-			public void onRatingChanged(RatingBar ratingBar, float rating,
-					boolean fromUser) {
+			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
 				taskUrgency = (int) rating;
 			}
 		});
 	}
-	
+
 	private void saveButton() {
 		saveButton = (Button) findViewById(R.id.cnt_saveButton);
-//		saveButton.setEnabled(taskCanBeSaved);
+		// saveButton.setEnabled(taskCanBeSaved);
 		saveButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+
 				String description = taskDescription.getText().toString().replace('\n', ' ');
-				newTask.setTaskDescription(description);
-				newTask.setTaskName(taskName.getText().toString());
-				newTask.setTaskRange(range);
-				newTask.setTaskUrgency(taskUrgency);
-				System.out.println(taskUrgency + "<-");
-				newTask.setTaskCreationDate(new Date(System.currentTimeMillis()));
-				newTask.setTaskRemindType(0);
-				newTask.setTaskLatitude(locationTuple.latitude);
-				newTask.setTaskLongitude(locationTuple.longitude);
-				System.out.println(locationTuple);
-				
-				dbAdapter.insertNewTask(newTask);
-				//TODO TOAST
+				task.setTaskDescription(description);
+				task.setTaskName(taskName.getText().toString());
+				task.setTaskRange(range);
+				task.setTaskUrgency(taskUrgency);
+				task.setTaskRemindType(0);
+				task.setTaskLatitude(locationTuple.latitude);
+				task.setTaskLongitude(locationTuple.longitude);
+				System.out.println(task.getTaskName());
+
+				dbAdapter.updateTask(task);
+				// TODO TOAST
 				finish();
 			}
 		});
 	}
-	
-	
+
 	private void cancelButton() {
 		cancelButton = (Button) findViewById(R.id.cnt_cancelButton);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -143,28 +152,25 @@ public class CreateNewTask extends Activity {
 			}
 		});
 	}
-	
 
-
-	
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		switch (requestCode) {
 		case BACK_FROM_LOCATION_CHOOSING:
 			locationChosen = true;
 			locationTuple = (LocationTuple) data.getSerializableExtra("POINT");
 			break;
-		
+
 		case BACK_FROM_SPECIFYING_DAYS:
-			if(resultCode == Activity.RESULT_OK) {
-				newTask = (LRTask) data.getSerializableExtra("TASK");
+			if (resultCode == Activity.RESULT_OK) {
+				task = (LRTask) data.getSerializableExtra("TASK");
+				System.out.println(task.getRemindTimeRanges()[0][0]);
 			}
-				
+
 			break;
-			
+
 		default:
 			break;
 		}

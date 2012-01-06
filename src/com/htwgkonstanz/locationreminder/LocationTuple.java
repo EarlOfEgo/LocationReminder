@@ -1,6 +1,10 @@
 package com.htwgkonstanz.locationreminder;
 
-public final class LocationTuple {
+import java.io.Serializable;
+
+public final class LocationTuple implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	public final double longitude;
 	public final double latitude;
 

@@ -46,4 +46,12 @@
         android:layout_y="164dp"
         android:background="@drawable/task_button" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="122dp"
+        android:layout_y="256dp"
+        android:text="@string/main_settings" />
+
 </AbsoluteLayout>

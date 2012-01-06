@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/st_taskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/st_taskDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <com.google.android.maps.MapView
+        android:id="@+id/st_mapView"
+        android:layout_width="fill_parent"
+        android:layout_height="252dp"
+        android:layout_weight="0.16"
+        android:apiKey="0iQ6McrB_8GZ-pAnGPVwlE9xiJjtREuDYgmK6tw"
+        android:clickable="true"
+        android:enabled="true" />
+
+</LinearLayout>

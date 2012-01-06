@@ -35,6 +35,30 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </AbsoluteLayout>
 
+    <CheckBox
+        android:id="@+id/pv_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pv_Alarm" />
+
+    <GridLayout
+        android:id="@+id/pvgrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/pv_vibrator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pv_Vibrator" />
+
+        <CheckBox
+            android:id="@+id/pv_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pv_Sound" />
+    </GridLayout>
+
     <GridLayout
         android:id="@+id/pv_grid"
         android:layout_width="wrap_content"
@@ -45,15 +69,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ok" />
-        
-         <Button
-             android:id="@+id/pv_cancelButton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/cancel" />
 
+        <Button
+            android:id="@+id/pv_cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
     </GridLayout>
-
-
 
 </LinearLayout>

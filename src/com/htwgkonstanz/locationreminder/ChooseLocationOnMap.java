@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -38,6 +40,7 @@ public class ChooseLocationOnMap extends MapActivity {
 	private double longi;
 	private double lat;
 	private MapController controller;
+	private LocationTuple point;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class ChooseLocationOnMap extends MapActivity {
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(ChooseLocationOnMap.this);
 				dialog.setContentView(R.layout.searchlocationdialog);
+				dialog.setTitle(R.string.searchLocationTitle);
 				
 				Button okButton = (Button) dialog.findViewById(R.id.searchLocationOkButton);
 				okButton.setOnClickListener(new OnClickListener() {
@@ -71,7 +75,6 @@ public class ChooseLocationOnMap extends MapActivity {
 
 					@Override
 					public void onClick(View v) {
-						System.out.println("First line");
 						Geocoder geoCoder = new Geocoder(ChooseLocationOnMap.this);
 						TextView address = (TextView) dialog.findViewById(R.id.searchLocationTextField);
 						
@@ -84,7 +87,7 @@ public class ChooseLocationOnMap extends MapActivity {
 						
 						if (addresses.size() > 0) {
 							GeoPoint p = new GeoPoint((int) (addresses.get(0).getLatitude() * 1E6), (int) (addresses.get(0).getLongitude() * 1E6));
-
+							point = new LocationTuple(p.getLongitudeE6(), p.getLatitudeE6());
 							controller.animateTo(p);
 							controller.setZoom(12);
 
@@ -94,16 +97,14 @@ public class ChooseLocationOnMap extends MapActivity {
 							listOfOverlays.add(mapOverlay);
 
 							gMapView.invalidate();
-//							txtsearch.setText("");
 						} else {
 							AlertDialog.Builder adb = new AlertDialog.Builder(ChooseLocationOnMap.this);
 							adb.setTitle("Google Map");
-							adb.setMessage("Please Provide the Proper Place");
-							adb.setPositiveButton("Close", null);
+							adb.setMessage(R.string.searchLocationWrong);
+							adb.setPositiveButton(R.string.close, null);
 							adb.show();
 						}
 						dialog.dismiss();
-						System.out.println("Last line");
 					
 					}
 				});
@@ -116,7 +117,14 @@ public class ChooseLocationOnMap extends MapActivity {
 
 			@Override
 			public void onClick(View v) {
-				
+				Intent intent = new Intent();
+				intent.putExtra("POINT", point);
+				if(getParent() == null) {
+					setResult(Activity.RESULT_OK, intent);
+				} else {
+					getParent().setResult(Activity.RESULT_OK, intent);
+				}
+				finish();
 			}
 		});
 
@@ -158,28 +166,5 @@ public class ChooseLocationOnMap extends MapActivity {
 		}
 	}
 
-	private class TasksOverlay extends ItemizedOverlay<OverlayItem> {
-		private final ArrayList<OverlayItem> mOverlays;
-
-		public TasksOverlay(Drawable defaultMarker) {
-			super(boundCenterBottom(defaultMarker));
-			mOverlays = new ArrayList<OverlayItem>();
-		}
-
-		public void addOverlay(OverlayItem overlay) {
-			mOverlays.add(overlay);
-			populate();
-		}
-
-		@Override
-		protected OverlayItem createItem(int i) {
-			return mOverlays.get(i);
-		}
-
-		@Override
-		public int size() {
-			return mOverlays.size();
-		}
-	}
 
 }
