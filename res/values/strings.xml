@@ -50,17 +50,16 @@
     <string name="pv_Alarm">Alarm</string>
     <string name="pv_Vibrator">Vibrator</string>
     <string name="pv_Sound">Sound</string>
+    <string name="pv_UpdateTime">Alter update period</string>
+    
+    
     <string name="newTaskCreated">New Task successfully created</string>
-
-    <!-- days short -->
-    <string name="monday_short">MO</string>
-    <string name="tuesday_short">TU</string>
-    <string name="wednesday_short">WE</string>
-    <string name="thursday_short">TH</string>
-    <string name="friday_short">FR</string>
-    <string name="saturday_short">SA</string>
-    <string name="sunday_short">SU</string>
     
     <string name="creationDate">Created:</string>
+    
+    <string name="minute">Minute</string>
+    <string name="hour">Hour</string>
+    <string name="minutes">Minutes</string>
+    <string name="hours">Hours</string>
 
 </resources>

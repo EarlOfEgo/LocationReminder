@@ -63,4 +63,10 @@ public class LocationReminderActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		startService(new Intent(this, LocationProvider.class));
+	}
 }

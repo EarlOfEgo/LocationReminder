@@ -18,10 +18,6 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import com.htwgkonstanz.locationreminder.R;
-import com.htwgkonstanz.locationreminder.R.drawable;
-import com.htwgkonstanz.locationreminder.R.id;
-import com.htwgkonstanz.locationreminder.R.layout;
-import com.htwgkonstanz.locationreminder.R.string;
 import com.htwgkonstanz.locationreminder.database.LRTask;
 import com.htwgkonstanz.locationreminder.maps.TasksOverlay;
 

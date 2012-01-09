@@ -21,10 +21,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.htwgkonstanz.locationreminder.R;
-import com.htwgkonstanz.locationreminder.R.drawable;
-import com.htwgkonstanz.locationreminder.R.id;
-import com.htwgkonstanz.locationreminder.R.layout;
-import com.htwgkonstanz.locationreminder.R.menu;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseHelper;
 import com.htwgkonstanz.locationreminder.database.LRTask;

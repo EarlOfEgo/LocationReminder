@@ -134,7 +134,9 @@ public class LocationProvider extends Service {
 	}
 
 	private long getPeriod() {
-		return 1000;
+		SharedPreferences settings = getSharedPreferences("prefs", 0);
+		System.out.println("UPDATE");
+		return settings.getInt("TIME", 60000);
 	}
 
 	@Override
