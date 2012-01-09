@@ -1,7 +1,6 @@
 package com.htwgkonstanz.locationreminder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,7 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.IBinder;
+import android.provider.MediaStore.Audio;
 import android.text.format.Time;
 
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
@@ -80,9 +81,13 @@ public class LocationProvider extends Service {
 				if(settings.getBoolean("ALARM", false)) {
 					if(settings.getBoolean("VIBRATOR", false)) {
 						System.out.println("RRR RRR");
+						tasksOpen.defaults |= Notification.DEFAULT_VIBRATE;
 					}
 					if(settings.getBoolean("SOUND", false)) {
 						System.out.println("RING RING");
+						tasksOpen.defaults |= Notification.DEFAULT_SOUND;
+						tasksOpen.sound = Uri.parse("file:///sdcard/notification/ringer.mp3");
+						tasksOpen.sound = Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI, "6");
 					}
 				}
 				
