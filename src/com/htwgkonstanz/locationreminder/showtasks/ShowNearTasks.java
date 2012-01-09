@@ -1,22 +1,36 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.showtasks;
 
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.htwgkonstanz.locationreminder.R;
+import com.htwgkonstanz.locationreminder.R.drawable;
+import com.htwgkonstanz.locationreminder.R.id;
+import com.htwgkonstanz.locationreminder.R.layout;
+import com.htwgkonstanz.locationreminder.R.menu;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseHelper;
+import com.htwgkonstanz.locationreminder.database.LRTask;
+import com.htwgkonstanz.locationreminder.edittasks.EditTask;
 
 public class ShowNearTasks extends Activity {
 	
@@ -25,6 +39,8 @@ public class ShowNearTasks extends Activity {
 	private MyCursorAdapter cursorAdapter;
 	private ListView listOfTasks;
 	private ArrayList<Integer> ids;
+	private int id;
+	private boolean completed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +52,36 @@ public class ShowNearTasks extends Activity {
 		dbAdapter.open();
 		
 		listOfTasks = (ListView) findViewById(R.id.listoftasks_listView);
-		
+		registerForContextMenu(listOfTasks);
 		ids = getIntent().getIntegerArrayListExtra("IDS");
 		if(ids == null)
 			ids = new ArrayList<Integer>();
 		
+		listOfTasks.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				updatePosition(position);
+				openContextMenu(view);
+			}
+
+			private void updatePosition(int position) {
+				Cursor cursor = (Cursor) cursorAdapter.getItem(position);
+				id = cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID));
+				completed = cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskExecuted)) == 0;
+			}
+		});
+		
 		populateDate();
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		MenuInflater inflater = getMenuInflater();
+		if (completed)
+			inflater.inflate(R.menu.listmenucompleted, menu);
+		else
+			inflater.inflate(R.menu.listmenu, menu);
 	}
 	
 	
@@ -92,5 +132,44 @@ public class ShowNearTasks extends Activity {
 			return view;
 		}
 		
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		Intent intent;
+		LRTask task;
+		switch (item.getItemId()) {
+		case R.id.showTask:
+			intent = new Intent(this, ShowTask.class);
+			task = new LRTask();
+			task = dbAdapter.getFullTaskById(id);
+			intent.putExtra("TASK", task);
+			startActivity(intent);
+			break;
+
+		case R.id.editTask:
+			intent = new Intent(this, EditTask.class);
+			task = new LRTask();
+			task = dbAdapter.getFullTaskById(id);
+			intent.putExtra("TASK", task);
+			startActivityForResult(intent, 10);
+			break;
+		case R.id.deleteTask:
+			dbAdapter.deleteTask(id);
+
+			break;
+
+		case R.id.completeTask:
+			dbAdapter.completeTask(id);
+			break;
+		}
+		populateDate();
+		return true;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		populateDate();
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

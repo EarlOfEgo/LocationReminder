@@ -1,4 +1,4 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,11 @@ import android.os.IBinder;
 import android.provider.MediaStore.Audio;
 import android.text.format.Time;
 
+import com.htwgkonstanz.locationreminder.R;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
+import com.htwgkonstanz.locationreminder.maps.GoogleMaps;
+import com.htwgkonstanz.locationreminder.maps.LocationTuple;
+import com.htwgkonstanz.locationreminder.showtasks.ShowNearTasks;
 
 public class LocationProvider extends Service {
 
@@ -44,11 +48,9 @@ public class LocationProvider extends Service {
 			public void run() {
 				Time currentTime = getCurrentTime();
 				if (timeIsRight(currentTime)) {
-					System.out.println("time is right");
 					LocationTuple currentLocation = googleMaps.getLocation();
 					System.out.println(currentLocation);
 					if (locationIsRight(currentLocation)) {
-						System.out.println("location is right");
 						alarmTheUser(currentLocation, currentTime);
 					}
 				}
@@ -132,7 +134,6 @@ public class LocationProvider extends Service {
 	}
 
 	private long getPeriod() {
-		// TODO Auto-generated method stub
 		return 1000;
 	}
 

@@ -1,5 +1,10 @@
 package com.htwgkonstanz.locationreminder;
 
+import com.htwgkonstanz.locationreminder.edittasks.CreateNewTask;
+import com.htwgkonstanz.locationreminder.preferences.Preferences;
+import com.htwgkonstanz.locationreminder.service.LocationProvider;
+import com.htwgkonstanz.locationreminder.showtasks.ShowAllTasks;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

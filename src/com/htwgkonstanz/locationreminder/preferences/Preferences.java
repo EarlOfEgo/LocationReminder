@@ -1,4 +1,8 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.preferences;
+import com.htwgkonstanz.locationreminder.R;
+import com.htwgkonstanz.locationreminder.R.id;
+import com.htwgkonstanz.locationreminder.R.layout;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;

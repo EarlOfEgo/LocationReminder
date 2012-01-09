@@ -1,5 +1,8 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.edittasks;
 
+import com.htwgkonstanz.locationreminder.R;
+import com.htwgkonstanz.locationreminder.R.id;
+import com.htwgkonstanz.locationreminder.R.layout;
 import com.htwgkonstanz.locationreminder.database.LRTask;
 
 import android.app.Activity;

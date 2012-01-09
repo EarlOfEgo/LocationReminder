@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.text.format.Time;
 
-import com.htwgkonstanz.locationreminder.LocationTuple;
+import com.htwgkonstanz.locationreminder.maps.LocationTuple;
 
 public class LRDatabaseAdapter {
 	private Context context;
