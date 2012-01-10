@@ -13,6 +13,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.text.format.Time;
+import android.util.Log;
 
 import com.htwgkonstanz.locationreminder.maps.LocationTuple;
 
@@ -104,7 +105,6 @@ public class LRDatabaseAdapter {
 
 	private String getTimeDependentQuery(Time currentTime) {
 		int timeInMinutes = currentTime.hour * 60 + currentTime.minute;
-		
 		return "SELECT * FROM " + LRDatabaseHelper.DBNAME + " WHERE " + daysFroms[currentTime.weekDay] + " <= " + timeInMinutes + " AND " + daysTos[currentTime.weekDay] + " >= " + timeInMinutes + ";";
 	}
 
@@ -133,10 +133,12 @@ public class LRDatabaseAdapter {
 				double latitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLatitude));
 				double longitude = cursor.getDouble(cursor.getColumnIndex(LRDatabaseHelper.DB_taskLongitude));
 				float[] resultsc = new float[10];
-				System.out.println(currentLocation.latitude +" " + currentLocation.longitude +" " + latitude +" " + longitude);
 				Location.distanceBetween(currentLocation.latitude, currentLocation.longitude, latitude, longitude, resultsc);
 				if (range >= resultsc[0])
 					ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));
+				Log.d("DATA", "Latitude: " + String.valueOf(latitude) + "\tLatitude: " +String.valueOf(longitude));
+				Log.d("CURRENT", "Latitude: " + String.valueOf(currentLocation.latitude) + "\tLatitude: " +String.valueOf(currentLocation.longitude));
+				
 				cursor.moveToNext();
 			}
 			cursor.close();
@@ -152,7 +154,6 @@ public class LRDatabaseAdapter {
 
 	public Cursor getNearTasks(ArrayList<Integer> ids) {
 		String query = getQueryByIDs(ids);
-		System.out.println(query);
 		Cursor cursor = database.rawQuery(query, null);
 		if (cursor != null)
 			cursor.moveToFirst();

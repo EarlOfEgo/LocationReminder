@@ -8,7 +8,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.htwgkonstanz.locationreminder.R;

@@ -1,10 +1,5 @@
 package com.htwgkonstanz.locationreminder.edittasks;
 
-import com.htwgkonstanz.locationreminder.R;
-import com.htwgkonstanz.locationreminder.R.id;
-import com.htwgkonstanz.locationreminder.R.layout;
-import com.htwgkonstanz.locationreminder.database.LRTask;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -12,8 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,6 +16,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.htwgkonstanz.locationreminder.R;
+import com.htwgkonstanz.locationreminder.database.LRTask;
 
 public class SpecifyDaysAndTime extends Activity {
 

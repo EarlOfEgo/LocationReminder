@@ -17,7 +17,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.htwgkonstanz.locationreminder.R;
-import com.htwgkonstanz.locationreminder.service.LocationProvider;
 
 public class Preferences extends Activity implements SeekBar.OnSeekBarChangeListener {
 
@@ -33,7 +32,7 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 		setContentView(R.layout.preferencesview);
 
 		settings = getSharedPreferences("prefs", 0);
-		range = settings.getInt("RANGE", 10);
+		range = settings.getInt("RANGE", 5);
 		boolean alarm = settings.getBoolean("ALARM", false);
 		boolean vibrator = settings.getBoolean("VIBRATOR", false);
 		boolean sound = settings.getBoolean("SOUND", false);
@@ -89,7 +88,7 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 		});
 
 		rangeText = (TextView) findViewById(R.id.pv_range_count);
-		rangeSeekBar.setProgress(range);
+		rangeSeekBar.setProgress(range / 5);
 		updateDisplayedInformation();
 
 		okButton = (Button) findViewById(R.id.pv_okButton);
@@ -122,19 +121,24 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 
 				String minutes = res.getString(R.string.minutes);
 				String hours = res.getString(R.string.hours);
-				
+
 				final CharSequence[] items = { "1 " + minute, "10 " + minutes, "30 " + minutes, "1 " + hour, "2 " + hours, "5 " + hours, "10 " + hours, "24 " + hours, "DEBUG" };
-				final int[] time = {60000, 600000, 1800000, 3600000, 7200000, 18000000, 36000000, 86400000, 10000 };
-				
+				final int[] time = { 60000, 600000, 1800000, 3600000, 7200000, 18000000, 36000000, 86400000, 10000 };
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
 				builder.setTitle(R.string.pv_UpdateTime);
 				builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-				    public void onClick(DialogInterface dialog, int item) {
+					public void onClick(DialogInterface dialog, int item) {
 						int updateTime = time[item];
 						dialog.dismiss();
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putInt("TIME", updateTime);
 						editor.commit();
+						if (getParent() == null) {
+							setResult(Activity.RESULT_OK, new Intent());
+						} else {
+							getParent().setResult(Activity.RESULT_OK, new Intent());
+						}
 					}
 				});
 				AlertDialog alert = builder.create();
@@ -145,7 +149,7 @@ public class Preferences extends Activity implements SeekBar.OnSeekBarChangeList
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		range = progress;
+		range = progress * 5;
 		updateDisplayedInformation();
 
 	}

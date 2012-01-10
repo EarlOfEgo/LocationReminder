@@ -14,6 +14,7 @@ import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -69,12 +70,15 @@ public class ChooseLocationOnMap extends MapActivity {
 						try {
 							addresses = geoCoder.getFromLocationName(address.getText().toString(), 5);
 						} catch (IOException e) {
-							System.out.println(e);
+							Log.e("ERROR", "ChooseLocationOnMap" ,e);
 						}
 						
 						if (addresses.size() > 0) {
-							GeoPoint p = new GeoPoint((int) (addresses.get(0).getLatitude() * 1E6), (int) (addresses.get(0).getLongitude() * 1E6));
-							point = new LocationTuple(p.getLongitudeE6(), p.getLatitudeE6());
+							double latitude = addresses.get(0).getLatitude();
+							double longitude = addresses.get(0).getLongitude();
+							GeoPoint p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+							point = new LocationTuple(longitude , latitude);
+							Log.d("CURRENT", "Latitude: " + String.valueOf(latitude) + "Latitude: " +String.valueOf(longitude));
 							controller.animateTo(p);
 							controller.setZoom(18);
 
@@ -140,11 +144,9 @@ public class ChooseLocationOnMap extends MapActivity {
 		public boolean draw(Canvas canvas, MapView mapView, boolean shadow, long when) {
 			super.draw(canvas, mapView, shadow);
 
-			// ---translate the GeoPoint to screen pixels---
 			Point screenPts = new Point();
 			mapView.getProjection().toPixels(p, screenPts);
 
-			// ---add the marker---
 			Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.task_solved);
 			canvas.drawBitmap(bmp, screenPts.x, screenPts.y - 32, null);
 			return true;

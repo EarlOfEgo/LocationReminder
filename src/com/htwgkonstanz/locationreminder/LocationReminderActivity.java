@@ -67,7 +67,9 @@ public class LocationReminderActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		stopService(new Intent(this, LocationProvider.class));
-		startService(new Intent(this, LocationProvider.class));
+		if(resultCode == Activity.RESULT_OK) {
+			stopService(new Intent(this, LocationProvider.class));
+			startService(new Intent(this, LocationProvider.class));
+		}
 	}
 }
