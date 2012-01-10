@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore.Audio;
 import android.text.format.Time;
@@ -57,7 +58,6 @@ public class LocationProvider extends Service {
 			}
 
 			private void alarmTheUser(LocationTuple currentLocation, Time currentTime) {
-				System.out.println(getTasksIds(currentLocation));
 				ArrayList<Integer> ids = intersect(getTasksIds(currentLocation), getTasksIds(currentTime));
 				if(ids.isEmpty()) 
 					return;
@@ -147,6 +147,8 @@ public class LocationProvider extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if(dbAdapter != null)
+			dbAdapter.close();
 		if (timer != null)
 			timer.cancel();
 	}

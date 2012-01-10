@@ -47,7 +47,7 @@ public class LocationReminderActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LocationReminderActivity.this, Preferences.class);
-				startActivity(intent);
+				startActivityForResult(intent, 0);
 			}
 		});
 	}
@@ -67,6 +67,7 @@ public class LocationReminderActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		stopService(new Intent(this, LocationProvider.class));
 		startService(new Intent(this, LocationProvider.class));
 	}
 }
