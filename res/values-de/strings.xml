@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, LocationReminderActivity!</string>
+    <string name="app_name">LocationReminder</string>
+    <string name="ok">ok</string>
+    <string name="cancel">abbrechen</string>
+    <string name="save">save</string>
+    <string name="close">Close</string>
+
+    <!-- createnewtask view elements -->
+    <string name="cntV_enterTaskName">Task Name</string>
+    <string name="cntV_taskUrgency">Task Urgency</string>
+    <string name="cntV_taskLocation">Specify Location</string>
+    <string name="cntV_taskDescription">Description</string>
+    <string name="cntV_taskDefineTimeRange">Specify remind days and time</string>
+    <string name="cntV_taskDefineTimeRangeButtonText">Specify</string>
+    <string name="cntV_taskspecifyReminderMode">Specify the remind mode</string>
+    <string name="cntV_taskChooseLocation">Choose Task Location</string>
+    <string name="cntV_taskChooseLocationButtonText">Choose</string>
+    <string name="cntV_taskSpecifyRange">Specify reminding range</string>
+
+    <!-- main view elements -->
+    <string name="main_createNewTask">Create new task</string>
+    <string name="main_showAllTask">Show all task</string>
+    <string name="main_settings">Settings</string>
+    <string name="clom_search">Search location</string>
+    <string name="clom_title">Enter a location</string>
+
+    <!-- chooseremindingtime view elements -->
+    <string name="to">to</string>
+    <string name="from">from</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="editTask">Edit Task</string>
+    <string name="deleteTask">Delete Task</string>
+    <string name="completeTask">Complete Task</string>
+    <string name="showTask">Show Task</string>
+    <string name="notificationTitle">Location Reminder</string>
+    <string name="notificationText">Task near your location detected</string>
+    <string name="searchLocationTitle">Enter a location</string>
+    <string name="searchLocationWrong">Please Provide the Proper Place</string>
+
+    <!-- preferences view -->
+    <string name="pv_Alarm">Alarm</string>
+    <string name="pv_Vibrator">Vibrator</string>
+    <string name="pv_Sound">Sound</string>
+    <string name="pv_UpdateTime">Alter update period</string>
+    
+    
+    <string name="newTaskCreated">New Task successfully created</string>
+    
+    <string name="creationDate">Created:</string>
+    
+    <string name="minute">Minute</string>
+    <string name="hour">Hour</string>
+    <string name="minutes">Minutes</string>
+    <string name="hours">Hours</string>
+
+</resources>
