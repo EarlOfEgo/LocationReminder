@@ -24,12 +24,14 @@
     <string name="main_createNewTask">Neue Task erstellen</string>
     <string name="main_showAllTask">Alle Tasks anzeigen</string>
     <string name="main_settings">Einstellungen</string>
+    
+    
     <string name="clom_search">Positionssuche</string>
     <string name="clom_title">Bitte eine Position angeben</string>
 
     <!-- chooseremindingtime view elements -->
-    <string name="to">von</string>
-    <string name="from">bis</string>
+    <string name="to">bis</string>
+    <string name="from">von</string>
     <string name="monday">Montag</string>
     <string name="tuesday">Dienstag</string>
     <string name="wednesday">Mittwoch</string>
@@ -39,11 +41,11 @@
     <string name="sunday">Sonntag</string>
     <string name="editTask">Task bearbeiten</string>
     <string name="deleteTask">Task löschen</string>
-    <string name="completeTask">Task hinzufügen</string>
+    <string name="completeTask">Task erledigen</string>
     <string name="showTask">Task anzeigen</string>
     <string name="notificationTitle">Location Reminder</string>
     <string name="notificationText">Task nahe Ihrer derzeitigen Position geortet</string>
-    <string name="searchLocationTitle">Bitte eine Position angeben</string>
+    <string name="searchLocationTitle">Adresse eingeben</string>
     <string name="searchLocationWrong">Bitte eine geeignete Position angeben</string>
 
     <!-- preferences view -->

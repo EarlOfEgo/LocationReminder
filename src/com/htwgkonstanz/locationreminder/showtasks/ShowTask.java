@@ -4,8 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TabHost;
@@ -16,10 +20,8 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 import com.htwgkonstanz.locationreminder.R;
 import com.htwgkonstanz.locationreminder.database.LRTask;
-import com.htwgkonstanz.locationreminder.maps.TasksOverlay;
 
 public class ShowTask extends MapActivity {
 
@@ -52,26 +54,24 @@ public class ShowTask extends MapActivity {
 			creationDate.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(task.getTaskCreationDate()));
 
 			gMapView = (MapView) findViewById(R.id.st_mapView);
-
-			GeoPoint gPunkt = new GeoPoint((int) task.getTaskLatitude(), (int) task.getTaskLongitude());
-
+			
+			double latitude = task.getTaskLatitude();
+			double longitude = task.getTaskLongitude();
+			GeoPoint p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+			Log.d("CURRENT", "Latitude: " + String.valueOf(latitude) + " Longitude: " +String.valueOf(longitude));
+			
 			gMapView.setSatellite(true);
 			gMapView.setBuiltInZoomControls(true);
-			// get MapController that helps to set/get location, zoom etc.
 			controller = gMapView.getController();
-			controller.setCenter(gPunkt);
+			controller.animateTo(p);
 			controller.setZoom(18);
 
-			gMapView.displayZoomControls(true);
+			MapOverlay mapOverlay = new MapOverlay(p);
+			List<Overlay> listOfOverlays = gMapView.getOverlays();
+			listOfOverlays.clear();
+			listOfOverlays.add(mapOverlay);
 
-			List<Overlay> mapOverlays = gMapView.getOverlays();
-			Drawable drawable = this.getResources().getDrawable(R.drawable.task_solved);
-			TasksOverlay itemizedoverlay = new TasksOverlay(drawable);
-			OverlayItem overlayitem = new OverlayItem(gPunkt, "Hola, Mundo!", "I'm in Mexico City!");
-			itemizedoverlay.addOverlay(overlayitem);
-			mapOverlays.add(itemizedoverlay);
-
-			controller.setCenter(gPunkt);
+			gMapView.invalidate();
 		}
 
 	}
@@ -114,6 +114,24 @@ public class ShowTask extends MapActivity {
 			return String.valueOf(c);
 		else
 			return "0" + String.valueOf(c);
+	}
+	
+	class MapOverlay extends com.google.android.maps.Overlay {
+		GeoPoint p;
+		public MapOverlay(GeoPoint p) {
+			this.p = p;
+		}
+		
+		public boolean draw(Canvas canvas, MapView mapView, boolean shadow, long when) {
+			super.draw(canvas, mapView, shadow);
+
+			Point screenPts = new Point();
+			mapView.getProjection().toPixels(p, screenPts);
+
+			Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.task_solved);
+			canvas.drawBitmap(bmp, screenPts.x, screenPts.y - 32, null);
+			return true;
+		}
 	}
 
 }
