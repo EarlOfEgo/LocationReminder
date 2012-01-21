@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, LocationReminderActivity!</string>
+    <string name="app_name">LocationReminder</string>
+    <string name="ok">ok</string>
+    <string name="cancel">abbrechen</string>
+    <string name="save">speichern</string>
+    <string name="close">schliessen</string>
+
+    <!-- createnewtask view elements -->
+    <string name="cntV_enterTaskName">Task Name</string>
+    <string name="cntV_taskUrgency">Task Dringlichkeit</string>
+    <string name="cntV_taskLocation">Position wählen</string>
+    <string name="cntV_taskDescription">Beschreibung</string>
+    <string name="cntV_taskDefineTimeRange">Angabe über zu erinnernde Tage und Uhrzeit</string>
+    <string name="cntV_taskDefineTimeRangeButtonText">Angeben</string>
+    <string name="cntV_taskspecifyReminderMode">Geeignete Art der Erinnerung wählen</string>
+    <string name="cntV_taskChooseLocation">Task Position wählen</string>
+    <string name="cntV_taskChooseLocationButtonText">Auswählen</string>
+    <string name="cntV_taskSpecifyRange">Erinnerungs-Radius wählen</string>
+
+    <!-- main view elements -->
+    <string name="main_createNewTask">Neue Task erstellen</string>
+    <string name="main_showAllTask">Alle Tasks anzeigen</string>
+    <string name="main_settings">Einstellungen</string>
+    
+    
+    <string name="clom_search">Positionssuche</string>
+    <string name="clom_title">Bitte eine Position angeben</string>
+
+    <!-- chooseremindingtime view elements -->
+    <string name="to">bis</string>
+    <string name="from">von</string>
+    <string name="monday">Montag</string>
+    <string name="tuesday">Dienstag</string>
+    <string name="wednesday">Mittwoch</string>
+    <string name="thursday">Donnerstag</string>
+    <string name="friday">Freitag</string>
+    <string name="saturday">Samstag</string>
+    <string name="sunday">Sonntag</string>
+    <string name="editTask">Task bearbeiten</string>
+    <string name="deleteTask">Task löschen</string>
+    <string name="completeTask">Task erledigen</string>
+    <string name="showTask">Task anzeigen</string>
+    <string name="notificationTitle">Location Reminder</string>
+    <string name="notificationText">Task nahe Ihrer derzeitigen Position geortet</string>
+    <string name="searchLocationTitle">Adresse eingeben</string>
+    <string name="searchLocationWrong">Bitte eine geeignete Position angeben</string>
+
+    <!-- preferences view -->
+    <string name="pv_Alarm">Alarm</string>
+    <string name="pv_Vibrator">Vibration</string>
+    <string name="pv_Sound">Sound</string>
+    <string name="pv_UpdateTime">Update-Frequenz bearbeiten</string>
+    
+    
+    <string name="newTaskCreated">Neue Task erfolgreich angelegt</string>
+    
+    <string name="creationDate">Erzeugt:</string>
+    
+    <string name="minute">Minute</string>
+    <string name="hour">Stunde</string>
+    <string name="minutes">Minuten</string>
+    <string name="hours">Stunden</string>
+
+</resources>

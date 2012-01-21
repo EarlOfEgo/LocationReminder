@@ -1,6 +1,4 @@
-package com.htwgkonstanz.locationreminder;
-
-import java.util.Date;
+package com.htwgkonstanz.locationreminder.edittasks;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,29 +8,26 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.htwgkonstanz.locationreminder.R;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
 import com.htwgkonstanz.locationreminder.database.LRTask;
+import com.htwgkonstanz.locationreminder.maps.ChooseLocationOnMap;
+import com.htwgkonstanz.locationreminder.maps.LocationTuple;
 
 public class EditTask extends Activity {
 
 	private TextView taskName;
 	private RatingBar urgencyRatingBar;
-	private Button specifyModeButton;
 	private Button saveButton;
 	private Button cancelButton;
-	private Boolean taskCanBeSaved;
 	private LRTask task;
-	private SeekBar rangeSeekBar;
-	private TextView rangeText;
 	private int range;
 	private TextView taskDescription;
 	private int taskUrgency;
 	private Button chooseLocationButton;
 	private Button specifyDaysButton;
-	private boolean locationChosen;
 	private LRDatabaseAdapter dbAdapter;
 
 	private static final int BACK_FROM_LOCATION_CHOOSING = 1;
@@ -63,7 +58,6 @@ public class EditTask extends Activity {
 		dbAdapter = new LRDatabaseAdapter(this);
 		dbAdapter.open();
 
-		taskCanBeSaved = false;
 		saveButton();
 		cancelButton();
 		specifyDaysButton();
@@ -159,8 +153,9 @@ public class EditTask extends Activity {
 
 		switch (requestCode) {
 		case BACK_FROM_LOCATION_CHOOSING:
-			locationChosen = true;
-			locationTuple = (LocationTuple) data.getSerializableExtra("POINT");
+			if (resultCode == Activity.RESULT_OK) {
+				locationTuple = (LocationTuple) data.getSerializableExtra("POINT");
+			}
 			break;
 
 		case BACK_FROM_SPECIFYING_DAYS:

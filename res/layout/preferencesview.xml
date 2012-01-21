@@ -59,6 +59,12 @@
             android:text="@string/pv_Sound" />
     </GridLayout>
 
+    <Button
+        android:id="@+id/pv_periodButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pv_UpdateTime" />
+
     <GridLayout
         android:id="@+id/pv_grid"
         android:layout_width="wrap_content"

@@ -4,26 +4,330 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/st_taskName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <GridLayout
+        android:id="@+id/st_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/st_taskDescription"
+        <ImageView
+            android:id="@+id/st_Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:src="@drawable/task_solved" />
+
+        <TextView
+            android:id="@+id/st_taskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/st_taskDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="left"
+            android:layout_row="1"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="21dp"
+            android:layout_column="0"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="0" />
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/st_grid2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/st_taskCreated"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/creationDate"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/st_taskCreationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </GridLayout>
+
+    <TabHost
+        android:id="@+id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <GridLayout
+                    android:id="@+id/grid_tab_monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromMonday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo1"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToMonday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom2"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromTuesday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo2"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToTuesday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_wednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromWednesday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo3"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToWednesday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom4"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromThursday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo4"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToThursday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom5"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromFriday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo5"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToFriday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_saturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom6"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromSaturday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo6"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToSaturday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tab_sunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monday" >
+
+                    <TextView
+                        android:id="@+id/st_tvFrom7"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeFromSunday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/st_tvTo7"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/st_timeToSunday"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="time" />
+                </GridLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
     <com.google.android.maps.MapView
         android:id="@+id/st_mapView"
         android:layout_width="fill_parent"
         android:layout_height="252dp"
         android:layout_weight="0.16"
-        android:apiKey="0iQ6McrB_8GZ-pAnGPVwlE9xiJjtREuDYgmK6tw"
+        android:apiKey="0iQ6McrB_8GZbHpoOP_g6BFM6I6M86KwT-lg8Ng"
         android:clickable="true"
         android:enabled="true" />
 

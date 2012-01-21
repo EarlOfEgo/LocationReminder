@@ -1,5 +1,10 @@
 package com.htwgkonstanz.locationreminder;
 
+import com.htwgkonstanz.locationreminder.edittasks.CreateNewTask;
+import com.htwgkonstanz.locationreminder.preferences.Preferences;
+import com.htwgkonstanz.locationreminder.service.LocationProvider;
+import com.htwgkonstanz.locationreminder.showtasks.ShowAllTasks;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +47,7 @@ public class LocationReminderActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(LocationReminderActivity.this, Preferences.class);
-				startActivity(intent);
+				startActivityForResult(intent, 0);
 			}
 		});
 	}
@@ -57,5 +62,14 @@ public class LocationReminderActivity extends Activity {
 
 			}
 		});
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode == Activity.RESULT_OK) {
+			stopService(new Intent(this, LocationProvider.class));
+			startService(new Intent(this, LocationProvider.class));
+		}
 	}
 }

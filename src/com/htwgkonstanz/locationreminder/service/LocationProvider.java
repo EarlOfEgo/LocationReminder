@@ -1,7 +1,6 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,22 +13,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.IBinder;
+import android.provider.MediaStore.Audio;
 import android.text.format.Time;
+import android.util.Log;
 
+import com.htwgkonstanz.locationreminder.R;
 import com.htwgkonstanz.locationreminder.database.LRDatabaseAdapter;
+import com.htwgkonstanz.locationreminder.maps.GoogleMaps;
+import com.htwgkonstanz.locationreminder.maps.LocationTuple;
+import com.htwgkonstanz.locationreminder.showtasks.ShowNearTasks;
 
 public class LocationProvider extends Service {
 
 	private Timer timer;
 	private LRDatabaseAdapter dbAdapter;
 	private GoogleMaps googleMaps;
-	
+	private LocationTuple currentLocation;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
+
 		timer = new Timer();
 		dbAdapter = new LRDatabaseAdapter(this);
 		dbAdapter.open();
@@ -43,49 +49,48 @@ public class LocationProvider extends Service {
 			public void run() {
 				Time currentTime = getCurrentTime();
 				if (timeIsRight(currentTime)) {
-					System.out.println("time is right");
-					LocationTuple currentLocation = googleMaps.getLocation();
-					System.out.println(currentLocation);
+					currentLocation = googleMaps.getLocation();
 					if (locationIsRight(currentLocation)) {
-						System.out.println("location is right");
 						alarmTheUser(currentLocation, currentTime);
 					}
 				}
 			}
 
 			private void alarmTheUser(LocationTuple currentLocation, Time currentTime) {
-				System.out.println(getTasksIds(currentLocation));
 				ArrayList<Integer> ids = intersect(getTasksIds(currentLocation), getTasksIds(currentTime));
-				if(ids.isEmpty()) 
+				if (ids.isEmpty())
 					return;
-								
+
 				Context context = getApplicationContext();
 				NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 				Notification tasksOpen = new Notification();
 				tasksOpen.icon = R.drawable.task_solved;
 				Resources res = getResources();
-				
+
 				tasksOpen.tickerText = res.getString(R.string.notificationText);
 				tasksOpen.when = System.currentTimeMillis();
-				
+
 				Intent notificationIntent = new Intent(context, ShowNearTasks.class);
 				notificationIntent.putExtra("IDS", ids);
 				PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
-				
+
 				tasksOpen.setLatestEventInfo(context, res.getString(R.string.notificationTitle), res.getString(R.string.notificationText), intent);
 				manager.notify(0, tasksOpen);
-				
+
 				SharedPreferences settings = getSharedPreferences("prefs", 0);
-				System.out.println(settings.getBoolean("ALARM", false));
-				if(settings.getBoolean("ALARM", false)) {
-					if(settings.getBoolean("VIBRATOR", false)) {
-						System.out.println("RRR RRR");
+				if (settings.getBoolean("ALARM", false)) {
+					if (settings.getBoolean("VIBRATOR", false)) {
+						Log.i("SERVICE", "RRR RRR");
+						tasksOpen.defaults |= Notification.DEFAULT_VIBRATE;
 					}
-					if(settings.getBoolean("SOUND", false)) {
-						System.out.println("RING RING");
+					if (settings.getBoolean("SOUND", false)) {
+						Log.i("SERVICE", "RING RING");
+						tasksOpen.defaults |= Notification.DEFAULT_SOUND;
+						tasksOpen.sound = Uri.parse("file:///sdcard/notification/ringer.mp3");
+						tasksOpen.sound = Uri.withAppendedPath(Audio.Media.INTERNAL_CONTENT_URI, "6");
 					}
 				}
-				
+
 			}
 
 			private ArrayList<Integer> intersect(List<Integer> locationIDs, List<Integer> timeIDs) {
@@ -127,8 +132,9 @@ public class LocationProvider extends Service {
 	}
 
 	private long getPeriod() {
-		// TODO Auto-generated method stub
-		return 1000;
+		SharedPreferences settings = getSharedPreferences("prefs", 0);
+		System.out.println("UPDATE");
+		return settings.getInt("TIME", 60000);
 	}
 
 	@Override
@@ -139,6 +145,8 @@ public class LocationProvider extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if (dbAdapter != null)
+			dbAdapter.close();
 		if (timer != null)
 			timer.cancel();
 	}

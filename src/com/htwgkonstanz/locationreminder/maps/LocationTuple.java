@@ -1,4 +1,4 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.maps;
 
 import java.io.Serializable;
 

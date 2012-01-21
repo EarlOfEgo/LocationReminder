@@ -1,4 +1,5 @@
-package com.htwgkonstanz.locationreminder;
+package com.htwgkonstanz.locationreminder.maps;
+
 
 import android.content.Context;
 import android.location.*;
