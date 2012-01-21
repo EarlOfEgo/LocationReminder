@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sat Jan 21 18:02:27 CET 2012
+markTmpDer=true
+builderNum=2
+outputDir=target/
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=LocationReminder.tex
+outputFile=LocationReminder.pdf
+langSpell=en
+markDer=true
+srcDir=source/layout/

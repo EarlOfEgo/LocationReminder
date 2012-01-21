@@ -1,0 +1,6 @@
+.cache
+.classpath
+.manager
+.scala_dependencies
+.settings
+tmp/
