@@ -11,13 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/searchLocationOkButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/ok" />
-
         <EditText
             android:id="@+id/searchLocationTextField"
             android:layout_width="297dp"
@@ -26,6 +19,13 @@
 
             <requestFocus />
         </EditText>
+
+        <Button
+            android:id="@+id/searchLocationOkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ok" />
     </LinearLayout>
 
 </LinearLayout>
