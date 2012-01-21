@@ -22,7 +22,7 @@
 
     <!-- main view elements -->
     <string name="main_createNewTask">Create new task</string>
-    <string name="main_showAllTask">Show all task</string>
+    <string name="main_showAllTask">Show all tasks</string>
     <string name="main_settings">Settings</string>
     <string name="clom_search">Search location</string>
     <string name="clom_title">Enter a location</string>
