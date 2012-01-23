@@ -4,3 +4,10 @@
 .scala_dependencies
 .settings
 tmp/
+
+# generated LaTeX files
+source/layout/*.aux
+source/layout/*.log
+source/layout/*.pdf
+source/layout/*.synctex.gz
+source/layout/*.toc
