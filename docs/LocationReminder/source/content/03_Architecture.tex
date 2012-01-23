@@ -1,7 +1,28 @@
 \section{Architecture}
-\subsection{Use Cases}
-TODO wenn task gesolved ist wird sie nicht mehr vom service beruecksichtigt
+The following section provides an insight over the structure and architecture
+of the application.
 \subsection{Components}
+The components presented in the Figure \ref{componentDiagram} are divided into
+two categories:
+\begin{description}
+  \item[yellow] already existing components
+  \item[white]  components, which have to be implemented.
+\end{description}
+SQL Lite database was chosen, because it is directly supported by the Android
+SDK. The same reasoning applies to the selection of the Google Maps API.
+ \begin{figure}[h]
+  \caption{LocationManager Component Diagram}
+  \label{componentDiagram}
+  \center
+  	\includegraphics[scale=0.75]{../resources/ComponentDiagram.png}
+\end{figure}
+
+ \begin{figure}[h!]
+  \caption{LocationManager Class Diagram}
+  \center
+  	\includegraphics[scale=0.5]{../resources/ClassDiagram.png}
+\end{figure}
+\newpage
 \subsection{Used Technologies}
 The application is written in Java and built with Eclipse. The SQL Lite database
 was used to persist the tasks and further vital information. Android API were

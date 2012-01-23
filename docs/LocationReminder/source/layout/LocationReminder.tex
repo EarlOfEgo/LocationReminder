@@ -1,15 +1,38 @@
 \documentclass{article}
 
+\usepackage[
+bookmarks=true,
+bookmarksopen=true,
+bookmarksnumbered=true,
+pdfstartview={100\%},
+pdfstartpage=1,
+breaklinks=true,
+colorlinks=true,
+linkcolor=black,
+anchorcolor=black,
+citecolor=black,
+filecolor=black,
+menucolor=black,
+urlcolor=black
+]{hyperref}
+
 \usepackage{color}
 \usepackage{graphicx}
 
 \begin{document}
+
 \input{../content/00_Cover}
 \tableofcontents
 \newpage
+\listoffigures
+\newpage
 \input{../content/01_Introduction}
+\newpage
 \input{../content/02_Requirements}
+\newpage
 \input{../content/03_Architecture}
+\newpage
 \input{../content/04_User_Manual}
 
 \end{document}
+
