@@ -22,6 +22,15 @@ SDK. The same reasoning applies to the selection of the Google Maps API.
   \center
   	\includegraphics[scale=0.5]{../resources/ClassDiagram.png}
 \end{figure}
+The \emph{TaskManager} is the core component of the application. It takes care
+of creating, editing, saving and deleting tasks. The \emph{TaskBuilder} is the
+central component of the delivery system of the application. It controls the
+\emph{MapManager}, the \emph{TimeManager} and the \emph{TaskManager}
+respectively. Both the \emph{MapManager} and the \emph{TimeManager} are derived
+from the \emph{Activity}, which is the main part of the Android application
+life-cycle. The \emph{MapManager} handles the view of the map, by using the
+Google Maps API. The \emph{TimeManager} uses standard Android widgets to assist
+the user in selecting the time span.
 \newpage
 \subsection{Used Technologies}
 The application is written in Java and built with Eclipse. The SQL Lite database

@@ -9,5 +9,5 @@ tmp/
 source/layout/*.aux
 source/layout/*.log
 source/layout/*.pdf
-source/layout/*.synctex.gz
+*.synctex.gz
 source/layout/*.toc
