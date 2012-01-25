@@ -131,7 +131,6 @@ public class EditTask extends Activity {
 				System.out.println(task.getTaskName());
 
 				dbAdapter.updateTask(task);
-				// TODO TOAST
 				finish();
 			}
 		});

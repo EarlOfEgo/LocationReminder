@@ -136,8 +136,8 @@ public class LRDatabaseAdapter {
 				Location.distanceBetween(currentLocation.latitude, currentLocation.longitude, latitude, longitude, resultsc);
 				if (range >= resultsc[0])
 					ids.add(cursor.getInt(cursor.getColumnIndex(LRDatabaseHelper.DB_taskID)));
-				Log.d("DATA", "Latitude: " + String.valueOf(latitude) + "\tLatitude: " +String.valueOf(longitude));
-				Log.d("CURRENT", "Latitude: " + String.valueOf(currentLocation.latitude) + "\tLatitude: " +String.valueOf(currentLocation.longitude));
+				Log.d("DATA", "Latitude: " + String.valueOf(latitude) + "\tLongitude: " +String.valueOf(longitude));
+				Log.d("CURRENT", "Latitude: " + String.valueOf(currentLocation.latitude) + "\tLongitude: " +String.valueOf(currentLocation.longitude));
 				
 				cursor.moveToNext();
 			}

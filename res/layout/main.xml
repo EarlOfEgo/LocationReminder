@@ -10,7 +10,7 @@
         android:layout_height="96dp"
         android:layout_x="35dp"
         android:layout_y="16dp"
-        android:background="@drawable/task_button" />
+        android:background="@drawable/main_button" />
 
     <Button
         android:id="@+id/main_showAllTaskButton"
@@ -18,7 +18,7 @@
         android:layout_height="96dp"
         android:layout_x="170dp"
         android:layout_y="16dp"
-        android:background="@drawable/task_button" />
+        android:background="@drawable/main_button" />
 
     <TextView
         android:id="@+id/textView2"
@@ -44,7 +44,7 @@
         android:layout_height="96dp"
         android:layout_x="95dp"
         android:layout_y="164dp"
-        android:background="@drawable/task_button" />
+        android:background="@drawable/main_button" />
 
     <TextView
         android:id="@+id/textView3"
